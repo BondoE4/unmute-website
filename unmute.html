@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UNMUTE | Silence Ends Here</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .glass { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
+    .pulse-mic { animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.2); opacity: 0.6; } 100% { transform: scale(1); opacity: 1; } }
+    .hidden-section { display: none; }
+    .active-section { display: block; animation: fadeIn 0.4s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+    .mascot-bubble { position: relative; background: white; border-radius: 20px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+    .emoji-mascot { font-size: 70px; display: block; text-align: center; margin: 15px 0; }
+    .file-upload-area { border: 2px dashed #cbd5e1; border-radius: 12px; padding: 25px; text-align: center; cursor: pointer; transition: all 0.3s; }
+    .file-upload-area:hover { border-color: #06b6d4; background: #f0fdfa; }
+    .gradient-primary { background: linear-gradient(135deg, #fb923c 0%, #ec4899 50%, #a78bfa 100%); }
+    .gradient-highschool { background: linear-gradient(135deg, #14b8a6 0%, #06b6d4 50%, #3b82f6 100%); }
+    .gradient-teachers { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); }
+  </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col">
+
+  <!-- PERSISTENT EMERGENCY BANNER -->
+  <div class="bg-red-600 text-white text-center py-2 px-4 text-sm font-bold shadow-md">
+    In immediate danger? Call Childline 116 or SAPS 10111 right now.
+  </div>
+
+  <!-- HEADER -->
+  <header class="py-6 px-4 bg-white shadow-sm relative">
+    <div class="flex flex-col items-center">
+      <h1 class="text-4xl md:text-6xl font-black tracking-tighter cursor-pointer" onclick="goHome()">
+        un<span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-orange-400 to-cyan-500">mute</span>
+      </h1>
+      <p class="mt-2 text-sm md:text-base font-semibold tracking-widest text-slate-400 uppercase">Silence Ends Here</p>
+    </div>
+    
+    <!-- STAFF LOGIN BUTTON -->
+    <a href="dashboard.html" class="absolute top-4 right-4 md:top-1/2 md:right-6 md:-translate-y-1/2 bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-slate-800 transition shadow-md">
+      Staff Login
+    </a>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-1 w-full max-w-4xl mx-auto px-4 py-8">
+
+    <!-- LANDING PAGE -->
+    <div id="landing" class="active-section">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+        <button onclick="openSection('primary')" class="group relative overflow-hidden rounded-3xl p-8 text-left transition-all hover:scale-105 hover:shadow-2xl">
+          <div class="absolute inset-0 gradient-primary opacity-90"></div>
+          <div class="relative z-10 text-white">
+            <div class="text-6xl mb-4"></div>
+            <h2 class="text-2xl font-bold mb-2">Primary Schools</h2>
+            <p class="text-lg font-medium mb-2">Meet Keitumetse</p>
+            <p class="text-sm opacity-90">A warm, friendly space for Grade R to Grade 7</p>
+          </div>
+        </button>
+
+        <button onclick="openSection('highschool')" class="group relative overflow-hidden rounded-3xl p-8 text-left transition-all hover:scale-105 hover:shadow-2xl">
+          <div class="absolute inset-0 gradient-highschool opacity-90"></div>
+          <div class="relative z-10 text-white">
+            <div class="text-6xl mb-4"></div>
+            <h2 class="text-2xl font-bold mb-2">High Schools</h2>
+            <p class="text-lg font-medium mb-2">Talk to Precious</p>
+            <p class="text-sm opacity-90">For Grade 8 to Grade 12. Your voice matters.</p>
+          </div>
+        </button>
+
+        <button onclick="openSection('teachers')" class="group relative overflow-hidden rounded-3xl p-8 text-left transition-all hover:scale-105 hover:shadow-2xl border-2 border-slate-200">
+          <div class="absolute inset-0 gradient-teachers opacity-95"></div>
+          <div class="relative z-10 text-white">
+            <div class="text-6xl mb-4">🛡️</div>
+            <h2 class="text-2xl font-bold mb-2">The Protected Line</h2>
+            <p class="text-lg font-medium mb-2 text-cyan-400">For Educators</p>
+            <p class="text-sm opacity-80">Confidential reporting</p>
+          </div>
+        </button>
+      </div>
+
+      <div class="mt-12 bg-white rounded-2xl p-8 shadow-lg border border-slate-100">
+        <h3 class="text-xl font-bold text-slate-900 mb-4 text-center">Check Your Case Status</h3>
+        <p class="text-slate-500 text-center mb-4">Already submitted a report? Enter your case number below.</p>
+        <div class="flex gap-2 max-w-md mx-auto">
+          <input type="text" id="case-check-input" placeholder="e.g. KC-2026-04821" class="flex-1 p-3 border border-slate-200 rounded-xl uppercase font-mono text-center tracking-wider">
+          <button onclick="checkCaseStatus()" class="bg-slate-900 text-white px-6 py-3 rounded-xl font-semibold hover:bg-slate-800 transition">Check</button>
+        </div>
+        <div id="case-status-result" class="hidden mt-4 p-4 bg-slate-50 rounded-xl"></div>
+      </div>
+    </div>
+
+    <!-- REPORTING FLOW CONTAINER -->
+    <div id="report-flow" class="hidden-section max-w-2xl mx-auto">
+      
+      <!-- Step 1: Mascot Introduction -->
+      <div id="step-intro" class="active-section">
+        <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-100">
+          <div id="mascot-emoji" class="emoji-mascot">🌈</div>
+          <div class="mascot-bubble max-w-md mx-auto">
+            <p id="mascot-greeting" class="text-lg text-slate-700 leading-relaxed">Hi there! I am Keitumetse, and I am so glad you are here. You are safe with me, and everything you tell me is confidential. Only trusted school adults who can help you will see your information. Ready to talk?</p>
+          </div>
+          <button onclick="goToStep('step-feeling')" class="mt-8 w-full bg-gradient-to-r from-orange-400 via-pink-500 to-purple-500 text-white font-bold py-4 rounded-2xl hover:opacity-90 transition shadow-lg">Yes, I am ready</button>
+        </div>
+      </div>
+
+      <!-- Step 2: How are you feeling? -->
+      <div id="step-feeling" class="hidden-section">
+        <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-100">
+          <button onclick="goBack()" class="text-slate-500 mb-4 font-semibold hover:text-slate-900">← Back</button>
+          <div id="mascot-emoji-2" class="emoji-mascot"></div>
+          <div class="mascot-bubble max-w-md mx-auto mb-6">
+            <p id="mascot-feeling" class="text-lg text-slate-700">How are you feeling right now? It is okay to not be okay. Take your time.</p>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+            <button onclick="selectFeeling('sad', this)" class="feeling-btn p-4 border-2 border-slate-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50 transition text-center">😢<br><span class="text-sm font-semibold">Sad</span></button>
+            <button onclick="selectFeeling('scared', this)" class="feeling-btn p-4 border-2 border-slate-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50 transition text-center">😰<br><span class="text-sm font-semibold">Scared</span></button>
+            <button onclick="selectFeeling('angry', this)" class="feeling-btn p-4 border-2 border-slate-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50 transition text-center">😠<br><span class="text-sm font-semibold">Angry</span></button>
+            <button onclick="selectFeeling('confused', this)" class="feeling-btn p-4 border-2 border-slate-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50 transition text-center">😕<br><span class="text-sm font-semibold">Confused</span></button>
+            <button onclick="selectFeeling('hurt', this)" class="feeling-btn p-4 border-2 border-slate-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50 transition text-center"><br><span class="text-sm font-semibold">Hurt</span></button>
+            <button onclick="selectFeeling('other', this)" class="feeling-btn p-4 border-2 border-slate-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50 transition text-center">😶<br><span class="text-sm font-semibold">Other</span></button>
+          </div>
+          <button onclick="goToStep('step-name')" id="btn-feeling" disabled class="w-full bg-slate-200 text-slate-400 font-bold py-4 rounded-2xl transition cursor-not-allowed">Continue</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Your Name (Confidential) -->
+      <div id="step-name" class="hidden-section">
+        <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-100">
+          <button onclick="goBack()" class="text-slate-500 mb-4 font-semibold hover:text-slate-900">← Back</button>
+          <div class="mascot-bubble max-w-md mx-auto mb-6">
+            <p class="text-lg text-slate-700 mb-3">To help you properly, I need to know your name. <strong class="text-cyan-600">This is completely confidential.</strong> Only trusted school adults who will help you can see it. They will not tell anyone else.</p>
+          </div>
+          <div class="space-y-4 max-w-md mx-auto">
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Your First Name</label>
+              <input type="text" id="reporter-firstname" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none" placeholder="e.g. Thabo">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Your Last Name</label>
+              <input type="text" id="reporter-lastname" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none" placeholder="e.g. Mokoena">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Your Grade</label>
+              <select id="reporter-grade" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none">
+                <option value="">Select your grade</option>
+                <option value="R">Grade R</option>
+                <option value="1">Grade 1</option>
+                <option value="2">Grade 2</option>
+                <option value="3">Grade 3</option>
+                <option value="4">Grade 4</option>
+                <option value="5">Grade 5</option>
+                <option value="6">Grade 6</option>
+                <option value="7">Grade 7</option>
+                <option value="8">Grade 8</option>
+                <option value="9">Grade 9</option>
+                <option value="10">Grade 10</option>
+                <option value="11">Grade 11</option>
+                <option value="12">Grade 12</option>
+              </select>
+            </div>
+          </div>
+          <button onclick="goToStep('step-school')" id="btn-name" disabled class="mt-6 w-full bg-slate-200 text-slate-400 font-bold py-4 rounded-2xl transition cursor-not-allowed">Continue</button>
+        </div>
+      </div>
+
+      <!-- Step 4: School Selection -->
+      <div id="step-school" class="hidden-section">
+        <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-100">
+          <button onclick="goBack()" class="text-slate-500 mb-4 font-semibold hover:text-slate-900">← Back</button>
+          <div class="mascot-bubble max-w-md mx-auto mb-6">
+            <p class="text-lg text-slate-700">Which school do you attend? This helps me route your report to the right people who can help.</p>
+          </div>
+          <input type="text" id="school-search" placeholder="Start typing your school name" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none mb-2" oninput="filterSchools()">
+          <ul id="school-list" class="max-h-40 overflow-y-auto border border-slate-100 rounded-xl hidden bg-white mb-4"></ul>
+          <button onclick="goToStep('step-incident')" id="btn-school" disabled class="w-full bg-slate-200 text-slate-400 font-bold py-4 rounded-2xl transition cursor-not-allowed">Continue</button>
+        </div>
+      </div>
+
+      <!-- Step 5: What Happened? -->
+      <div id="step-incident" class="hidden-section">
+        <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-100">
+          <button onclick="goBack()" class="text-slate-500 mb-4 font-semibold hover:text-slate-900">← Back</button>
+          <div class="mascot-bubble max-w-md mx-auto mb-6">
+            <p class="text-lg text-slate-700">Tell me what happened. You can type, speak, or even upload photos and videos if you have them. I am listening.</p>
+          </div>
+          
+          <!-- Incident Type -->
+          <div class="mb-6">
+            <label class="block text-sm font-semibold text-slate-700 mb-3">What type of incident was it?</label>
+            <div class="grid grid-cols-1 gap-2">
+              <button onclick="selectIncidentType('bullying', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">🚫 Bullying or harassment</button>
+              <button onclick="selectIncidentType('physical', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">👊 Physical violence or threats</button>
+              <button onclick="selectIncidentType('cyber', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">📱 Cyberbullying online</button>
+              <button onclick="selectIncidentType('discrimination', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">️ Discrimination</button>
+              <button onclick="selectIncidentType('other', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">📝 Other</button>
+            </div>
+          </div>
+
+          <!-- Description & Mic -->
+          <div class="mb-6">
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Tell me what happened (tap the mic to speak)</label>
+            <div class="relative">
+              <textarea id="incident-description" rows="5" class="w-full p-3 pr-12 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none resize-none" placeholder="What happened? When? Where? Who was involved?" oninput="checkCrisis()"></textarea>
+              <button onclick="toggleMic()" id="mic-btn" class="absolute bottom-3 right-3 bg-pink-500 text-white p-3 rounded-full hover:bg-pink-600 transition shadow-lg">🎤</button>
+            </div>
+            <p id="mic-status" class="text-xs text-slate-400 mt-2 text-right">Tap to record your voice</p>
+          </div>
+
+          <!-- Crisis Banner (Dynamic) -->
+          <div id="crisis-banner" class="hidden mb-6 p-4 bg-red-50 border-2 border-red-200 rounded-xl">
+            <p class="font-bold text-red-800 mb-2">We hear you, and you are not alone.</p>
+            <p class="text-sm text-red-700 mb-2">Because you mentioned something serious, please know you can get immediate help right now.</p>
+            <p class="text-sm font-bold text-red-900">Call Childline: 116 (Free and toll free)</p>
+            <p class="text-sm font-bold text-red-900">Call SAPS: 10111</p>
+          </div>
+
+          <!-- Evidence Upload -->
+          <div class="mb-6">
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Do you have any evidence? (Optional)</label>
+            <p class="text-xs text-slate-500 mb-3">Photos, videos, screenshots, or audio recordings.</p>
+            <div class="file-upload-area" onclick="document.getElementById('evidence-upload').click()">
+              <input type="file" id="evidence-upload" multiple accept="image/*,video/*,audio/*" class="hidden" onchange="handleFileUpload(this)">
+              <div class="text-4xl mb-2">📎</div>
+              <p class="text-sm font-semibold text-slate-700">Click to upload files</p>
+              <div id="file-list" class="mt-3 text-left"></div>
+            </div>
+          </div>
+
+          <button onclick="submitReport()" id="btn-incident" disabled class="w-full bg-slate-200 text-slate-400 font-bold py-4 rounded-2xl transition cursor-not-allowed">Submit Report</button>
+        </div>
+      </div>
+
+      <!-- Confirmation -->
+      <div id="step-confirm" class="hidden-section">
+        <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-100 text-center">
+          <div class="text-6xl mb-4">✅</div>
+          <h2 class="text-3xl font-bold text-slate-900 mb-4">Thank you for trusting me!</h2>
+          <p class="text-slate-600 mb-6">Your report has been submitted safely. The school will contact you within 48 school hours.</p>
+          
+          <div class="bg-slate-50 border-2 border-cyan-500 rounded-2xl p-6 mb-6">
+            <p class="text-sm text-slate-500 uppercase tracking-wide font-semibold mb-2">Your Case Number</p>
+            <p id="final-case-number" class="text-4xl font-black text-slate-900 tracking-wider font-mono">---</p>
+            <p class="text-xs text-slate-500 mt-3">Save this number! Use it to check your case status anytime.</p>
+          </div>
+
+          <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 text-left">
+            <p class="font-semibold text-amber-900 mb-2">What happens next?</p>
+            <ul class="text-sm text-amber-800 space-y-1 list-disc pl-5">
+              <li>A trusted adult at your school will contact you within 48 school hours.</li>
+              <li>Your identity is confidential. Only helpers can see your name.</li>
+              <li>Use your case number to check status or add more information.</li>
+            </ul>
+          </div>
+
+          <button onclick="goHome()" class="w-full bg-slate-900 text-white font-bold py-4 rounded-2xl hover:bg-slate-800 transition">Back to Home</button>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-900 text-slate-400 py-6 text-center text-sm mt-auto">
+    <p>2026 ASA NOVA Technologies (Pty) Ltd. All rights reserved.</p>
+    <p class="mt-1 text-xs">UNMUTE is a proud South African initiative. Silence Ends Here.</p>
+  </footer>
+
+  <script>
+    // Mock schools database
+    const schools = [
+      { name: "Alexandra Secondary School", emis: "301234567", type: "highschool" },
+      { name: "Linden Primary School", emis: "201987654", type: "primary" },
+      { name: "Hillbrow Comprehensive High", emis: "302345678", type: "highschool" },
+      { name: "Soweto East Primary", emis: "202876543", type: "primary" },
+      { name: "Durbanville High School", emis: "401112223", type: "highschool" }
+    ];
+
+    const caseDatabase = {};
+    let currentSection = '';
+    let selectedSchool = null;
+    let selectedFeeling = '';
+    let selectedIncidentType = '';
+    let uploadedFiles = [];
+    let reporterData = {};
+    let isRecording = false;
+    let stepHistory = [];
+
+    function openSection(section) {
+      currentSection = section;
+      document.getElementById('landing').classList.remove('active-section');
+      document.getElementById('landing').classList.add('hidden-section');
+      document.getElementById('report-flow').classList.remove('hidden-section');
+      document.getElementById('report-flow').classList.add('active-section');
+      
+      if (section === 'primary') {
+        document.getElementById('mascot-emoji').textContent = '';
+        document.getElementById('mascot-emoji-2').textContent = '';
+        document.getElementById('mascot-greeting').textContent = "Hi there! I am Keitumetse, and I am so glad you are here. You are safe with me, and everything you tell me is confidential. Only trusted school adults who can help you will see your information. Ready to talk?";
+        document.getElementById('mascot-feeling').textContent = "How are you feeling right now? It is okay to not be okay. Take your time.";
+      } else if (section === 'highschool') {
+        document.getElementById('mascot-emoji').textContent = '';
+        document.getElementById('mascot-emoji-2').textContent = '💙';
+        document.getElementById('mascot-greeting').textContent = "Hey, I am Precious. Thanks for reaching out. I know that takes courage. Everything you share stays confidential, and only the school adults who can actually help will see it. Want to talk?";
+        document.getElementById('mascot-feeling').textContent = "How are you feeling right now? Whatever it is, it is valid. I am here.";
+      } else {
+        document.getElementById('mascot-emoji').textContent = '🛡️';
+        document.getElementById('mascot-emoji-2').textContent = '🛡️';
+        document.getElementById('mascot-greeting').textContent = "Welcome to The Protected Line. This is a confidential channel for educators to report misconduct or incidents. Your identity is protected and only authorized personnel will review your report.";
+        document.getElementById('mascot-feeling').textContent = "Please describe the nature of your report.";
+      }
+      
+      resetForm();
+      stepHistory = ['step-intro'];
+      showStep('step-intro');
+    }
+
+    function goHome() {
+      document.getElementById('report-flow').classList.remove('active-section');
+      document.getElementById('report-flow').classList.add('hidden-section');
+      document.getElementById('landing').classList.remove('hidden-section');
+      document.getElementById('landing').classList.add('active-section');
+      window.scrollTo(0, 0);
+    }
+
+    function resetForm() {
+      selectedSchool = null;
+      selectedFeeling = '';
+      selectedIncidentType = '';
+      uploadedFiles = [];
+      reporterData = {};
+      document.getElementById('school-search').value = '';
+      document.getElementById('incident-description').value = '';
+      document.getElementById('reporter-firstname').value = '';
+      document.getElementById('reporter-lastname').value = '';
+      document.getElementById('reporter-grade').value = '';
+      document.getElementById('file-list').innerHTML = '';
+      document.getElementById('crisis-banner').classList.add('hidden');
+      document.getElementById('mic-status').textContent = 'Tap to record your voice';
+      document.getElementById('mic-btn').classList.remove('pulse-mic', 'bg-red-500');
+      document.getElementById('mic-btn').classList.add('bg-pink-500');
+      isRecording = false;
+      
+      document.querySelectorAll('.feeling-btn, .incident-type').forEach(b => {
+        b.classList.remove('border-cyan-500', 'bg-cyan-50');
+      });
+      
+      ['btn-feeling', 'btn-name', 'btn-school', 'btn-incident'].forEach(id => {
+        const btn = document.getElementById(id);
+        btn.disabled = true;
+        btn.className = 'w-full bg-slate-200 text-slate-400 font-bold py-4 rounded-2xl transition cursor-not-allowed';
+      });
+    }
+
+    function showStep(stepId) {
+      const steps = ['step-intro', 'step-feeling', 'step-name', 'step-school', 'step-incident', 'step-confirm'];
+      steps.forEach(s => {
+        document.getElementById(s).classList.add('hidden-section');
+        document.getElementById(s).classList.remove('active-section');
+      });
+      document.getElementById(stepId).classList.remove('hidden-section');
+      document.getElementById(stepId).classList.add('active-section');
+      window.scrollTo(0, 0);
+    }
+
+    function goToStep(stepId) {
+      stepHistory.push(stepId);
+      showStep(stepId);
+    }
+
+    function goBack() {
+      if (stepHistory.length > 1) {
+        stepHistory.pop();
+        const previousStep = stepHistory[stepHistory.length - 1];
+        showStep(previousStep);
+      }
+    }
+
+    function selectFeeling(feeling, btnElement) {
+      selectedFeeling = feeling;
+      document.querySelectorAll('.feeling-btn').forEach(b => {
+        b.classList.remove('border-cyan-500', 'bg-cyan-50');
+      });
+      btnElement.classList.add('border-cyan-500', 'bg-cyan-50');
+      
+      const btn = document.getElementById('btn-feeling');
+      btn.disabled = false;
+      btn.className = 'w-full bg-gradient-to-r from-cyan-600 to-blue-700 text-white font-bold py-4 rounded-2xl hover:opacity-90 transition shadow-lg';
+    }
+
+    function selectIncidentType(type, btnElement) {
+      selectedIncidentType = type;
+      document.querySelectorAll('.incident-type').forEach(b => {
+        b.classList.remove('border-cyan-500', 'bg-cyan-50');
+      });
+      btnElement.classList.add('border-cyan-500', 'bg-cyan-50');
+      checkIncidentButton();
+    }
+
+    function filterSchools() {
+      const query = document.getElementById('school-search').value.toLowerCase();
+      const list = document.getElementById('school-list');
+      list.innerHTML = '';
+      
+      if (query.length < 2) {
+        list.classList.add('hidden');
+        return;
+      }
+      
+      const filtered = schools.filter(s => s.name.toLowerCase().includes(query)).slice(0, 5);
+      
+      if (filtered.length === 0) {
+        list.innerHTML = '<li class="p-3 text-slate-400 text-sm">No schools found</li>';
+      } else {
+        filtered.forEach(s => {
+          const li = document.createElement('li');
+          li.className = 'p-3 hover:bg-slate-50 cursor-pointer border-b border-slate-100 text-sm';
+          li.textContent = s.name;
+          li.onclick = () => selectSchool(s);
+          list.appendChild(li);
+        });
+      }
+      list.classList.remove('hidden');
+    }
+
+    function selectSchool(school) {
+      selectedSchool = school;
+      document.getElementById('school-search').value = school.name;
+      document.getElementById('school-list').classList.add('hidden');
+      
+      const btn = document.getElementById('btn-school');
+      btn.disabled = false;
+      btn.className = 'w-full bg-gradient-to-r from-cyan-600 to-blue-700 text-white font-bold py-4 rounded-2xl hover:opacity-90 transition shadow-lg';
+    }
+
+    function handleFileUpload(input) {
+      const files = Array.from(input.files);
+      uploadedFiles = files;
+      const fileList = document.getElementById('file-list');
+      fileList.innerHTML = '';
+      
+      files.forEach(file => {
+        const div = document.createElement('div');
+        div.className = 'text-xs bg-white p-2 rounded-lg mt-2 border border-slate-200';
+        div.textContent = '📎 ' + file.name + ' (' + (file.size/1024).toFixed(1) + ' KB)';
+        fileList.appendChild(div);
+      });
+      checkIncidentButton();
+    }
+
+    function toggleMic() {
+      const btn = document.getElementById('mic-btn');
+      const status = document.getElementById('mic-status');
+      const textarea = document.getElementById('incident-description');
+      
+      isRecording = !isRecording;
+      
+      if (isRecording) {
+        btn.classList.add('pulse-mic', 'bg-red-500');
+        btn.classList.remove('bg-pink-500');
+        status.textContent = 'Recording... Tap again to stop';
+      } else {
+        btn.classList.remove('pulse-mic', 'bg-red-500');
+        btn.classList.add('bg-pink-500');
+        status.textContent = 'Voice message recorded successfully';
+        textarea.value += (textarea.value ? '\n' : '') + '[Voice message recorded]';
+        checkCrisis();
+        checkIncidentButton();
+      }
+    }
+
+    function checkCrisis() {
+      const text = document.getElementById('incident-description').value.toLowerCase();
+      const crisisWords = ['hurt myself', 'suicide', 'kill', 'knife', 'gun', 'weapon', 'abuse at home', 'immediate danger', 'beat me', 'hit me'];
+      const isCrisis = crisisWords.some(word => text.includes(word));
+      
+      const banner = document.getElementById('crisis-banner');
+      if (isCrisis) {
+        banner.classList.remove('hidden');
+      } else {
+        banner.classList.add('hidden');
+      }
+    }
+
+    function checkIncidentButton() {
+      const description = document.getElementById('incident-description').value;
+      const btn = document.getElementById('btn-incident');
+      
+      if (selectedIncidentType && description.length > 5) {
+        btn.disabled = false;
+        btn.className = 'w-full bg-gradient-to-r from-cyan-600 to-blue-700 text-white font-bold py-4 rounded-2xl hover:opacity-90 transition shadow-lg';
+      } else {
+        btn.disabled = true;
+        btn.className = 'w-full bg-slate-200 text-slate-400 font-bold py-4 rounded-2xl transition cursor-not-allowed';
+      }
+    }
+
+    ['reporter-firstname', 'reporter-lastname', 'reporter-grade'].forEach(id => {
+      document.getElementById(id).addEventListener('input', () => {
+        const hasName = document.getElementById('reporter-firstname').value && 
+                       document.getElementById('reporter-lastname').value && 
+                       document.getElementById('reporter-grade').value;
+        const btn = document.getElementById('btn-name');
+        if (hasName) {
+          btn.disabled = false;
+          btn.className = 'mt-6 w-full bg-gradient-to-r from-cyan-600 to-blue-700 text-white font-bold py-4 rounded-2xl hover:opacity-90 transition shadow-lg';
+        } else {
+          btn.disabled = true;
+          btn.className = 'mt-6 w-full bg-slate-200 text-slate-400 font-bold py-4 rounded-2xl transition cursor-not-allowed';
+        }
+      });
+    });
+
+    document.getElementById('incident-description').addEventListener('input', checkIncidentButton);
+
+    function submitReport() {
+      reporterData = {
+        firstName: document.getElementById('reporter-firstname').value,
+        lastName: document.getElementById('reporter-lastname').value,
+        grade: document.getElementById('reporter-grade').value,
+        feeling: selectedFeeling,
+        school: selectedSchool,
+        incidentType: selectedIncidentType,
+        description: document.getElementById('incident-description').value,
+        files: uploadedFiles.map(f => f.name),
+        timestamp: new Date().toISOString()
+      };
+      
+      const prefix = currentSection === 'primary' ? 'KC' : currentSection === 'highschool' ? 'DC' : 'TC';
+      const year = new Date().getFullYear();
+      const num = Math.floor(10000 + Math.random() * 90000);
+      const caseNum = prefix + '-' + year + '-' + num;
+      
+      caseDatabase[caseNum] = {
+        ...reporterData,
+        status: 'Submitted',
+        timeline: [{ date: new Date().toISOString(), action: 'Report submitted' }]
+      };
+      
+      document.getElementById('final-case-number').textContent = caseNum;
+      stepHistory.push('step-confirm');
+      showStep('step-confirm');
+    }
+
+    function checkCaseStatus() {
+      const caseNum = document.getElementById('case-check-input').value.trim().toUpperCase();
+      const resultDiv = document.getElementById('case-status-result');
+      
+      if (!caseNum) {
+        alert('Please enter a case number');
+        return;
+      }
+      
+      const caseData = caseDatabase[caseNum];
+      
+      if (caseData) {
+        resultDiv.classList.remove('hidden');
+        resultDiv.innerHTML = `
+          <div class="space-y-3">
+            <div class="flex justify-between items-center">
+              <span class="font-semibold">Status:</span>
+              <span class="bg-cyan-100 text-cyan-800 px-3 py-1 rounded-full text-sm font-semibold">${caseData.status}</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="font-semibold">Submitted:</span>
+              <span class="text-sm">${new Date(caseData.timestamp).toLocaleDateString()}</span>
+            </div>
+          </div>
+        `;
+      } else {
+        resultDiv.classList.remove('hidden');
+        resultDiv.innerHTML = '<p class="text-red-600 text-center font-semibold">Case number not found. Please check and try again.</p>';
+      }
+    }
+  </script>
+</body>
+</html>
