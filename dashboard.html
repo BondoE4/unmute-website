@@ -104,7 +104,7 @@
             <p class="text-xs text-amber-400 mt-2">Standard timeline</p>
           </div>
           <div class="bg-[#151B2B] border border-blue-900/30 rounded-2xl p-5">
-            <p class="text-slate-400 text-sm font-semibold mb-1">🔵 Low</p>
+            <p class="text-slate-400 text-sm font-semibold mb-1"> Low</p>
             <p class="text-3xl font-bold text-blue-400" id="stat-low">76</p>
             <p class="text-xs text-blue-400 mt-2">General concern</p>
           </div>
@@ -121,6 +121,7 @@
                 <option>High</option>
                 <option>Medium</option>
                 <option>Low</option>
+                <option>Cross-School</option>
               </select>
             </div>
           </div>
@@ -249,22 +250,20 @@
         submitted: '2026-07-07T10:00:00', triage: 'Low', status: 'Acknowledged', 
         desc: 'Rumours being spread on a WhatsApp group.',
         alleged: 'Unknown', flags: []
+      },
+      // NEW CROSS-SCHOOL CASE
+      {
+        id: 'DC-2026-04826', type: 'Physical assault', reporter: 'Masked (Matlhasedi High)', location: 'School transport', 
+        submitted: '2026-07-07T08:30:00', triage: 'High', status: 'District Referral', 
+        desc: 'Allegation of assault on the school transport route involving your learner. The reporting learner is from Matlhasedi High.',
+        alleged: 'Your Learner (Grade 10)', flags: ['Cross-School Referral', 'District Notified'], isCrossSchool: true
       }
     ];
 
     // SLA TIMER LOGIC (School Hours 08:00 - 14:00 SAST)
     function getSchoolHoursRemaining(submittedDateStr) {
       const submitted = new Date(submittedDateStr);
-      const now = new Date(); // In a real app, this would be server time
-      const totalSchoolHoursSLA = 48; 
-      
-      let schoolHoursElapsed = 0;
-      let current = new Date(submitted);
-      
-      // Simple simulation for demo: calculate rough hours passed during school time
-      // For the mock, we will just use a hardcoded remaining time based on the submitted date to make the demo look good
-      const diffMs = now - submitted;
-      const diffHours = diffMs / (1000 * 60 * 60);
+      const now = new Date(); 
       
       // Mock calculation for visual demo purposes
       if (submittedDateStr.includes('07-04')) return -10; // Breached
@@ -272,6 +271,7 @@
       if (submittedDateStr.includes('07-06') && submittedDateStr.includes('09:15')) return 36;
       if (submittedDateStr.includes('07-06') && submittedDateStr.includes('11:48')) return 40;
       if (submittedDateStr.includes('07-06') && submittedDateStr.includes('08:00')) return 44;
+      if (submittedDateStr.includes('07-07') && submittedDateStr.includes('08:30')) return 47;
       return 47; 
     }
 
@@ -307,16 +307,24 @@
         const dateStr = dateObj.toLocaleDateString('en-ZA') + '<br><span class="text-slate-500">' + dateObj.toLocaleTimeString('en-ZA', {hour: '2-digit', minute:'2-digit'}) + '</span>';
         
         let flagsHtml = '';
-        if (c.flags.includes('Repeat Victim')) flagsHtml += '<div class="text-xs text-red-400 font-semibold mt-1">🚩 Repeat Victim</div>';
-        if (c.flags.includes('Repeat Alleged Perpetrator')) flagsHtml += '<div class="text-xs text-orange-400 font-semibold mt-1">️ Repeat Alleged Perpetrator</div>';
+        if (c.flags.includes('Repeat Victim')) flagsHtml += '<div class="text-xs text-red-400 font-semibold mt-1"> Repeat Victim</div>';
+        if (c.flags.includes('Repeat Alleged Perpetrator')) flagsHtml += '<div class="text-xs text-orange-400 font-semibold mt-1"> Repeat Alleged Perpetrator</div>';
         if (c.flags.includes('Crisis Flag')) flagsHtml += '<div class="text-xs text-red-500 font-bold mt-1 animate-pulse">🚨 CRISIS LANE</div>';
+        if (c.flags.includes('Cross-School Referral')) flagsHtml += '<div class="text-xs text-purple-400 font-semibold mt-1">🔗 Cross-School Referral</div>';
+        if (c.flags.includes('District Notified')) flagsHtml += '<div class="text-xs text-cyan-400 font-semibold mt-1">️ District Notified</div>';
+
+        // Special styling for cross-school reporter
+        let reporterDisplay = c.reporter;
+        if (c.isCrossSchool) {
+          reporterDisplay = '<span class="text-slate-500 italic">Identity Hidden (POPIA)</span><br><span class="text-xs text-purple-400">Matlhasedi High</span>';
+        }
 
         const row = document.createElement('tr');
-        row.className = 'hover:bg-slate-800/50 transition';
+        row.className = 'hover:bg-slate-800/50 transition' + (c.isCrossSchool ? ' bg-purple-900/5' : '');
         row.innerHTML = `
           <td class="p-4 font-mono text-cyan-400">${c.id}</td>
           <td class="p-4">${c.type}</td>
-          <td class="p-4">${c.reporter}${flagsHtml}</td>
+          <td class="p-4">${reporterDisplay}${flagsHtml}</td>
           <td class="p-4 text-slate-400 text-xs">${c.location}</td>
           <td class="p-4 text-xs">${dateStr}</td>
           <td class="p-4">${timerHtml}</td>
@@ -337,33 +345,86 @@
 
       let flagsHtml = '';
       if (c.flags.length > 0) {
-        flagsHtml = '<div class="mb-6"><p class="text-slate-400 text-sm mb-2">System Flags</p><div class="flex gap-2">';
+        flagsHtml = '<div class="mb-6"><p class="text-slate-400 text-sm mb-2">System Flags</p><div class="flex flex-wrap gap-2">';
         c.flags.forEach(f => {
-          const color = f.includes('Victim') ? 'text-red-400 bg-red-900/20' : f.includes('Perpetrator') ? 'text-orange-400 bg-orange-900/20' : 'text-red-500 bg-red-900/20';
+          let color = 'text-slate-400 bg-slate-800';
+          if (f.includes('Victim')) color = 'text-red-400 bg-red-900/20';
+          else if (f.includes('Perpetrator')) color = 'text-orange-400 bg-orange-900/20';
+          else if (f.includes('Crisis')) color = 'text-red-500 bg-red-900/20';
+          else if (f.includes('Cross-School')) color = 'text-purple-400 bg-purple-900/20';
+          else if (f.includes('District')) color = 'text-cyan-400 bg-cyan-900/20';
           flagsHtml += `<span class="${color} px-3 py-1 rounded-lg text-xs font-bold">${f}</span>`;
         });
         flagsHtml += '</div></div>';
       }
 
+      // Special layout for Cross-School Masked Referral
+      let mainContent = '';
+      if (c.isCrossSchool) {
+        mainContent = `
+          <div class="bg-purple-900/20 border border-purple-800 rounded-xl p-4 mb-6">
+            <div class="flex items-start gap-3">
+              <span class="text-2xl"></span>
+              <div>
+                <h3 class="font-bold text-purple-300 mb-1">POPIA PROTECTION ACTIVE: Masked Referral View</h3>
+                <p class="text-sm text-slate-300">You are viewing this case solely to investigate your own learner's conduct. The reporting learner's identity, grade, and specific details are hidden to prevent exposure to the alleged perpetrator's school. Only the District has full visibility.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4 mb-6">
+            <div><p class="text-slate-400 text-sm mb-1">Type</p><p class="text-white font-semibold">${c.type}</p></div>
+            <div><p class="text-slate-400 text-sm mb-1">Reporter</p><p class="text-slate-500 italic font-semibold">Identity Hidden (Matlhasedi High)</p></div>
+            <div><p class="text-slate-400 text-sm mb-1">Location</p><p class="text-white font-semibold">${c.location}</p></div>
+            <div><p class="text-slate-400 text-sm mb-1">Submitted</p><p class="text-white font-semibold">${dateStr}</p></div>
+            <div class="col-span-2"><p class="text-slate-400 text-sm mb-1">Alleged Perpetrator (Your Learner)</p><p class="text-white font-semibold">${c.alleged}</p></div>
+            <div class="col-span-2"><p class="text-slate-400 text-sm mb-1">Current Status</p><p class="text-purple-400 font-semibold">${c.status}</p></div>
+          </div>
+
+          ${flagsHtml}
+
+          <div class="mb-6">
+            <p class="text-slate-400 text-sm mb-2">Allegation Summary</p>
+            <div class="bg-[#0B0F19] border border-slate-700 rounded-xl p-4"><p class="text-slate-200">${c.desc}</p></div>
+          </div>
+
+          <div class="bg-cyan-900/20 border border-cyan-800 rounded-xl p-4 mb-6">
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">🏛️</span>
+              <div>
+                <h3 class="font-bold text-cyan-300 mb-1">District Coordination Required</h3>
+                <p class="text-sm text-slate-300 mb-2">Because this involves a learner from another school, the District Education Office has been automatically copied. You cannot close this case without District sign-off.</p>
+                <p class="text-xs text-cyan-400 font-semibold">Assigned District Official: Mr. J. Mokoena (West Rand District)</p>
+              </div>
+            </div>
+          </div>
+        `;
+      } else {
+        // Standard case layout
+        mainContent = `
+          <h2 class="text-2xl font-bold text-white mb-2">Case ${c.id}</h2>
+          <div class="flex items-center gap-3 mb-6">${getTriageBadge(c.triage)} <span class="text-slate-400 text-sm">Priority Level</span></div>
+          
+          <div class="grid grid-cols-2 gap-4 mb-6">
+            <div><p class="text-slate-400 text-sm mb-1">Type</p><p class="text-white font-semibold">${c.type}</p></div>
+            <div><p class="text-slate-400 text-sm mb-1">Reporter</p><p class="text-white font-semibold">${c.reporter}</p></div>
+            <div><p class="text-slate-400 text-sm mb-1">Location</p><p class="text-white font-semibold">${c.location}</p></div>
+            <div><p class="text-slate-400 text-sm mb-1">Submitted</p><p class="text-white font-semibold">${dateStr}</p></div>
+            <div><p class="text-slate-400 text-sm mb-1">Alleged Involved</p><p class="text-white font-semibold">${c.alleged}</p></div>
+            <div><p class="text-slate-400 text-sm mb-1">Current Status</p><p class="text-cyan-400 font-semibold">${c.status}</p></div>
+          </div>
+
+          ${flagsHtml}
+
+          <div class="mb-6">
+            <p class="text-slate-400 text-sm mb-2">Description</p>
+            <div class="bg-[#0B0F19] border border-slate-700 rounded-xl p-4"><p class="text-slate-200">${c.desc}</p></div>
+          </div>
+        `;
+      }
+
       document.getElementById('modal-body').innerHTML = `
-        <h2 class="text-2xl font-bold text-white mb-2">Case ${c.id}</h2>
-        <div class="flex items-center gap-3 mb-6">${getTriageBadge(c.triage)} <span class="text-slate-400 text-sm">Priority Level</span></div>
-        
-        <div class="grid grid-cols-2 gap-4 mb-6">
-          <div><p class="text-slate-400 text-sm mb-1">Type</p><p class="text-white font-semibold">${c.type}</p></div>
-          <div><p class="text-slate-400 text-sm mb-1">Reporter</p><p class="text-white font-semibold">${c.reporter}</p></div>
-          <div><p class="text-slate-400 text-sm mb-1">Location</p><p class="text-white font-semibold">${c.location}</p></div>
-          <div><p class="text-slate-400 text-sm mb-1">Submitted</p><p class="text-white font-semibold">${dateStr}</p></div>
-          <div><p class="text-slate-400 text-sm mb-1">Alleged Involved</p><p class="text-white font-semibold">${c.alleged}</p></div>
-          <div><p class="text-slate-400 text-sm mb-1">Current Status</p><p class="text-cyan-400 font-semibold">${c.status}</p></div>
-        </div>
-
-        ${flagsHtml}
-
-        <div class="mb-6">
-          <p class="text-slate-400 text-sm mb-2">Description</p>
-          <div class="bg-[#0B0F19] border border-slate-700 rounded-xl p-4"><p class="text-slate-200">${c.desc}</p></div>
-        </div>
+        ${mainContent}
 
         <div class="mb-6">
           <p class="text-slate-400 text-sm mb-2">SLA Timeline</p>
@@ -378,7 +439,7 @@
 
         <div class="flex gap-3 mt-8">
           <button class="flex-1 bg-cyan-600 text-white font-bold py-3 rounded-xl hover:bg-cyan-500 transition">Log Action</button>
-          <button class="flex-1 bg-slate-700 text-white font-bold py-3 rounded-xl hover:bg-slate-600 transition">Escalate</button>
+          ${c.isCrossSchool ? '<button class="flex-1 bg-purple-600 text-white font-bold py-3 rounded-xl hover:bg-purple-500 transition">Message District</button>' : '<button class="flex-1 bg-slate-700 text-white font-bold py-3 rounded-xl hover:bg-slate-600 transition">Escalate</button>'}
           <button class="flex-1 bg-red-900/30 text-red-400 font-bold py-3 rounded-xl hover:bg-red-900/50 transition border border-red-800">Mark Resolved</button>
         </div>
       `;
