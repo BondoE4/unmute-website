@@ -8,7 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Inter', sans-serif; }
-    .glass { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
     .pulse-mic { animation: pulse 1.5s infinite; }
     @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.2); opacity: 0.6; } 100% { transform: scale(1); opacity: 1; } }
     .hidden-section { display: none; }
@@ -25,12 +24,10 @@
 </head>
 <body class="bg-slate-50 min-h-screen flex flex-col">
 
-  <!-- PERSISTENT EMERGENCY BANNER -->
   <div class="bg-red-600 text-white text-center py-2 px-4 text-sm font-bold shadow-md">
     In immediate danger? Call Childline 116 or SAPS 10111 right now.
   </div>
 
-  <!-- HEADER -->
   <header class="py-6 px-4 bg-white shadow-sm relative">
     <div class="flex flex-col items-center">
       <h1 class="text-4xl md:text-6xl font-black tracking-tighter cursor-pointer" onclick="goHome()">
@@ -38,39 +35,31 @@
       </h1>
       <p class="mt-2 text-sm md:text-base font-semibold tracking-widest text-slate-400 uppercase">Silence Ends Here</p>
     </div>
-    
-    <!-- STAFF LOGIN BUTTON -->
-    <a href="dashboard.html" class="absolute top-4 right-4 md:top-1/2 md:right-6 md:-translate-y-1/2 bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-slate-800 transition shadow-md">
-      Staff Login
-    </a>
+    <a href="dashboard.html" class="absolute top-4 right-4 md:top-1/2 md:right-6 md:-translate-y-1/2 bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-slate-800 transition shadow-md">Staff Login</a>
   </header>
 
-  <!-- MAIN CONTENT -->
   <main class="flex-1 w-full max-w-4xl mx-auto px-4 py-8">
 
-    <!-- LANDING PAGE -->
     <div id="landing" class="active-section">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
         <button onclick="openSection('primary')" class="group relative overflow-hidden rounded-3xl p-8 text-left transition-all hover:scale-105 hover:shadow-2xl">
           <div class="absolute inset-0 gradient-primary opacity-90"></div>
           <div class="relative z-10 text-white">
-            <div class="text-6xl mb-4"></div>
+            <div class="text-6xl mb-4">🌈</div>
             <h2 class="text-2xl font-bold mb-2">Primary Schools</h2>
             <p class="text-lg font-medium mb-2">Meet Keitumetse</p>
             <p class="text-sm opacity-90">A warm, friendly space for Grade R to Grade 7</p>
           </div>
         </button>
-
         <button onclick="openSection('highschool')" class="group relative overflow-hidden rounded-3xl p-8 text-left transition-all hover:scale-105 hover:shadow-2xl">
           <div class="absolute inset-0 gradient-highschool opacity-90"></div>
           <div class="relative z-10 text-white">
-            <div class="text-6xl mb-4"></div>
+            <div class="text-6xl mb-4">💙</div>
             <h2 class="text-2xl font-bold mb-2">High Schools</h2>
             <p class="text-lg font-medium mb-2">Talk to Precious</p>
             <p class="text-sm opacity-90">For Grade 8 to Grade 12. Your voice matters.</p>
           </div>
         </button>
-
         <button onclick="openSection('teachers')" class="group relative overflow-hidden rounded-3xl p-8 text-left transition-all hover:scale-105 hover:shadow-2xl border-2 border-slate-200">
           <div class="absolute inset-0 gradient-teachers opacity-95"></div>
           <div class="relative z-10 text-white">
@@ -81,7 +70,6 @@
           </div>
         </button>
       </div>
-
       <div class="mt-12 bg-white rounded-2xl p-8 shadow-lg border border-slate-100">
         <h3 class="text-xl font-bold text-slate-900 mb-4 text-center">Check Your Case Status</h3>
         <p class="text-slate-500 text-center mb-4">Already submitted a report? Enter your case number below.</p>
@@ -93,10 +81,8 @@
       </div>
     </div>
 
-    <!-- REPORTING FLOW CONTAINER -->
     <div id="report-flow" class="hidden-section max-w-2xl mx-auto">
-      
-      <!-- Step 1: Mascot Introduction -->
+
       <div id="step-intro" class="active-section">
         <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-100">
           <div id="mascot-emoji" class="emoji-mascot">🌈</div>
@@ -107,11 +93,10 @@
         </div>
       </div>
 
-      <!-- Step 2: How are you feeling? -->
       <div id="step-feeling" class="hidden-section">
         <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-100">
           <button onclick="goBack()" class="text-slate-500 mb-4 font-semibold hover:text-slate-900">← Back</button>
-          <div id="mascot-emoji-2" class="emoji-mascot"></div>
+          <div id="mascot-emoji-2" class="emoji-mascot">🌈</div>
           <div class="mascot-bubble max-w-md mx-auto mb-6">
             <p id="mascot-feeling" class="text-lg text-slate-700">How are you feeling right now? It is okay to not be okay. Take your time.</p>
           </div>
@@ -120,21 +105,33 @@
             <button onclick="selectFeeling('scared', this)" class="feeling-btn p-4 border-2 border-slate-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50 transition text-center">😰<br><span class="text-sm font-semibold">Scared</span></button>
             <button onclick="selectFeeling('angry', this)" class="feeling-btn p-4 border-2 border-slate-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50 transition text-center">😠<br><span class="text-sm font-semibold">Angry</span></button>
             <button onclick="selectFeeling('confused', this)" class="feeling-btn p-4 border-2 border-slate-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50 transition text-center">😕<br><span class="text-sm font-semibold">Confused</span></button>
-            <button onclick="selectFeeling('hurt', this)" class="feeling-btn p-4 border-2 border-slate-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50 transition text-center"><br><span class="text-sm font-semibold">Hurt</span></button>
+            <button onclick="selectFeeling('hurt', this)" class="feeling-btn p-4 border-2 border-slate-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50 transition text-center">💔<br><span class="text-sm font-semibold">Hurt</span></button>
             <button onclick="selectFeeling('other', this)" class="feeling-btn p-4 border-2 border-slate-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50 transition text-center">😶<br><span class="text-sm font-semibold">Other</span></button>
           </div>
           <button onclick="goToStep('step-name')" id="btn-feeling" disabled class="w-full bg-slate-200 text-slate-400 font-bold py-4 rounded-2xl transition cursor-not-allowed">Continue</button>
         </div>
       </div>
 
-      <!-- Step 3: Your Name (Confidential) -->
       <div id="step-name" class="hidden-section">
         <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-100">
           <button onclick="goBack()" class="text-slate-500 mb-4 font-semibold hover:text-slate-900">← Back</button>
           <div class="mascot-bubble max-w-md mx-auto mb-6">
-            <p class="text-lg text-slate-700 mb-3">To help you properly, I need to know your name. <strong class="text-cyan-600">This is completely confidential.</strong> Only trusted school adults who will help you can see it. They will not tell anyone else.</p>
+            <p class="text-lg text-slate-700 mb-3">To help you properly, I need to know if you want to share your name. <strong class="text-cyan-600">Your identity is completely protected.</strong></p>
           </div>
-          <div class="space-y-4 max-w-md mx-auto">
+          <div class="mb-6">
+            <label class="block text-sm font-semibold text-slate-700 mb-3">Do you want to share your name?</label>
+            <div class="grid grid-cols-1 gap-3">
+              <button onclick="toggleAnonymity(false, this)" class="anon-btn p-4 text-left border-2 border-cyan-500 bg-cyan-50 rounded-xl transition">
+                <span class="font-bold text-slate-900">Yes, share my name</span>
+                <p class="text-sm text-slate-600 mt-1">This helps the school contact me directly to resolve the issue.</p>
+              </button>
+              <button onclick="toggleAnonymity(true, this)" class="anon-btn p-4 text-left border-2 border-slate-200 rounded-xl hover:border-slate-400 transition">
+                <span class="font-bold text-slate-900">No, keep me completely anonymous</span>
+                <p class="text-sm text-slate-600 mt-1">I will not provide my name. The school will not know who I am.</p>
+              </button>
+            </div>
+          </div>
+          <div id="name-fields" class="space-y-4 max-w-md mx-auto">
             <div>
               <label class="block text-sm font-semibold text-slate-700 mb-2">Your First Name</label>
               <input type="text" id="reporter-firstname" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none" placeholder="e.g. Thabo">
@@ -167,7 +164,6 @@
         </div>
       </div>
 
-      <!-- Step 4: School Selection -->
       <div id="step-school" class="hidden-section">
         <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-100">
           <button onclick="goBack()" class="text-slate-500 mb-4 font-semibold hover:text-slate-900">← Back</button>
@@ -180,27 +176,34 @@
         </div>
       </div>
 
-      <!-- Step 5: What Happened? -->
       <div id="step-incident" class="hidden-section">
         <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-100">
           <button onclick="goBack()" class="text-slate-500 mb-4 font-semibold hover:text-slate-900">← Back</button>
           <div class="mascot-bubble max-w-md mx-auto mb-6">
             <p class="text-lg text-slate-700">Tell me what happened. You can type, speak, or even upload photos and videos if you have them. I am listening.</p>
           </div>
-          
-          <!-- Incident Type -->
           <div class="mb-6">
             <label class="block text-sm font-semibold text-slate-700 mb-3">What type of incident was it?</label>
             <div class="grid grid-cols-1 gap-2">
-              <button onclick="selectIncidentType('bullying', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">🚫 Bullying or harassment</button>
-              <button onclick="selectIncidentType('physical', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">👊 Physical violence or threats</button>
-              <button onclick="selectIncidentType('cyber', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">📱 Cyberbullying online</button>
-              <button onclick="selectIncidentType('discrimination', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">️ Discrimination</button>
-              <button onclick="selectIncidentType('other', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">📝 Other</button>
+              <button onclick="selectIncidentType('Bullying', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">🚫 Bullying</button>
+              <button onclick="selectIncidentType('Physical assault', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">👊 Physical assault</button>
+              <button onclick="selectIncidentType('Threats and intimidation', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">⚠️ Threats and intimidation</button>
+              <button onclick="selectIncidentType('Cyberbullying', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">📱 Cyberbullying</button>
+              <button onclick="selectIncidentType('School Transport harassment', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">🚌 School Transport harassment</button>
+              <button onclick="selectIncidentType('Discrimination', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">⚖️ Discrimination</button>
+              <button onclick="selectIncidentType('Educator misconduct', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">👨‍🏫 Educator misconduct</button>
+              <button onclick="selectIncidentType('Emotional abuse', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">💔 Emotional abuse</button>
+              <button onclick="selectIncidentType('Sexual harassment', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">🚨 Sexual harassment</button>
+              <button onclick="selectIncidentType('Unsafe school environment', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">🏫 Unsafe school environment</button>
+              <button onclick="selectIncidentType('Other safeguarding concern', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">📝 Other safeguarding concern</button>
             </div>
           </div>
 
-          <!-- Description & Mic -->
+          <div id="triage-indicator" class="hidden mb-6 p-4 rounded-xl border-2">
+            <p id="triage-text" class="font-bold text-sm"></p>
+            <p id="triage-desc" class="text-xs mt-1"></p>
+          </div>
+
           <div class="mb-6">
             <label class="block text-sm font-semibold text-slate-700 mb-2">Tell me what happened (tap the mic to speak)</label>
             <div class="relative">
@@ -209,16 +212,12 @@
             </div>
             <p id="mic-status" class="text-xs text-slate-400 mt-2 text-right">Tap to record your voice</p>
           </div>
-
-          <!-- Crisis Banner (Dynamic) -->
           <div id="crisis-banner" class="hidden mb-6 p-4 bg-red-50 border-2 border-red-200 rounded-xl">
             <p class="font-bold text-red-800 mb-2">We hear you, and you are not alone.</p>
             <p class="text-sm text-red-700 mb-2">Because you mentioned something serious, please know you can get immediate help right now.</p>
             <p class="text-sm font-bold text-red-900">Call Childline: 116 (Free and toll free)</p>
             <p class="text-sm font-bold text-red-900">Call SAPS: 10111</p>
           </div>
-
-          <!-- Evidence Upload -->
           <div class="mb-6">
             <label class="block text-sm font-semibold text-slate-700 mb-2">Do you have any evidence? (Optional)</label>
             <p class="text-xs text-slate-500 mb-3">Photos, videos, screenshots, or audio recordings.</p>
@@ -229,66 +228,130 @@
               <div id="file-list" class="mt-3 text-left"></div>
             </div>
           </div>
-
-          <button onclick="submitReport()" id="btn-incident" disabled class="w-full bg-slate-200 text-slate-400 font-bold py-4 rounded-2xl transition cursor-not-allowed">Submit Report</button>
+          <button onclick="goToStep('step-context')" id="btn-incident" disabled class="w-full bg-slate-200 text-slate-400 font-bold py-4 rounded-2xl transition cursor-not-allowed">Continue</button>
         </div>
       </div>
 
-      <!-- Confirmation -->
+      <div id="step-context" class="hidden-section">
+        <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-100">
+          <button onclick="goBack()" class="text-slate-500 mb-4 font-semibold hover:text-slate-900">← Back</button>
+          <div class="mascot-bubble max-w-md mx-auto mb-6">
+            <p class="text-lg text-slate-700">Let us get the context right. Where did this happen, and was the other person from your school?</p>
+          </div>
+          <div class="mb-6">
+            <label class="block text-sm font-semibold text-slate-700 mb-3">Where did this happen?</label>
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="selectLocation('School grounds', this)" class="location-btn p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">🏫 School grounds</button>
+              <button onclick="selectLocation('Walking to or from school', this)" class="location-btn p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">🚶 Walking to or from school</button>
+              <button onclick="selectLocation('School transport', this)" class="location-btn p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">🚌 School transport</button>
+              <button onclick="selectLocation('Sports event', this)" class="location-btn p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">🏆 Sports event</button>
+              <button onclick="selectLocation('Online', this)" class="location-btn p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">📱 Online</button>
+              <button onclick="selectLocation('Other', this)" class="location-btn p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">📝 Other</button>
+            </div>
+          </div>
+          <div class="mb-6">
+            <label class="block text-sm font-semibold text-slate-700 mb-3">Did the other learner attend your school?</label>
+            <div class="grid grid-cols-1 gap-2">
+              <button onclick="toggleCrossSchool('yes', this)" class="cross-btn p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">Yes, same school</button>
+              <button onclick="toggleCrossSchool('no', this)" class="cross-btn p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">No, different school</button>
+              <button onclick="toggleCrossSchool('unknown', this)" class="cross-btn p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">I do not know</button>
+            </div>
+          </div>
+          <div id="other-school-search" class="hidden mb-6">
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Which school does the other learner attend?</label>
+            <input type="text" id="other-school-input" placeholder="Start typing the other school name" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none mb-2" oninput="filterOtherSchools()">
+            <ul id="other-school-list" class="max-h-40 overflow-y-auto border border-slate-100 rounded-xl hidden bg-white mb-4"></ul>
+          </div>
+          <button onclick="submitReport()" id="btn-context" disabled class="w-full bg-slate-200 text-slate-400 font-bold py-4 rounded-2xl transition cursor-not-allowed">Submit Report</button>
+        </div>
+      </div>
+
       <div id="step-confirm" class="hidden-section">
         <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-100 text-center">
           <div class="text-6xl mb-4">✅</div>
           <h2 class="text-3xl font-bold text-slate-900 mb-4">Thank you for trusting me!</h2>
-          <p class="text-slate-600 mb-6">Your report has been submitted safely. The school will contact you within 48 school hours.</p>
-          
+          <p class="text-slate-600 mb-6">Your report has been received. We have received your report and an investigation will begin within the next 48 school hours.</p>
           <div class="bg-slate-50 border-2 border-cyan-500 rounded-2xl p-6 mb-6">
             <p class="text-sm text-slate-500 uppercase tracking-wide font-semibold mb-2">Your Case Number</p>
             <p id="final-case-number" class="text-4xl font-black text-slate-900 tracking-wider font-mono">---</p>
             <p class="text-xs text-slate-500 mt-3">Save this number! Use it to check your case status anytime.</p>
           </div>
-
-          <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 text-left">
-            <p class="font-semibold text-amber-900 mb-2">What happens next?</p>
-            <ul class="text-sm text-amber-800 space-y-1 list-disc pl-5">
-              <li>A trusted adult at your school will contact you within 48 school hours.</li>
-              <li>Your identity is confidential. Only helpers can see your name.</li>
-              <li>Use your case number to check status or add more information.</li>
-            </ul>
+          <div id="confirm-triage" class="rounded-xl p-4 mb-6 text-left"></div>
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 mb-6 text-left">
+            <p class="font-semibold text-slate-900 mb-3">What happens next?</p>
+            <div class="space-y-3 text-sm">
+              <div class="flex gap-3 items-start">
+                <span class="bg-green-100 text-green-800 px-2 py-0.5 rounded-full text-xs font-bold whitespace-nowrap">48 school hours</span>
+                <span class="text-slate-700">Your case will be acknowledged, risk assessed, and assigned to a responsible staff member.</span>
+              </div>
+              <div class="flex gap-3 items-start">
+                <span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full text-xs font-bold whitespace-nowrap">7 school days</span>
+                <span class="text-slate-700">An initial investigation will be completed.</span>
+              </div>
+              <div class="flex gap-3 items-start">
+                <span class="bg-red-100 text-red-800 px-2 py-0.5 rounded-full text-xs font-bold whitespace-nowrap">14 school days</span>
+                <span class="text-slate-700">Your case will be closed with a resolution, or escalated with documented reasons.</span>
+              </div>
+            </div>
+            <p class="text-xs text-slate-500 mt-4">School hours are counted between 08:00 and 14:00 SAST on school days only. Weekends and holidays are not counted.</p>
           </div>
-
           <button onclick="goHome()" class="w-full bg-slate-900 text-white font-bold py-4 rounded-2xl hover:bg-slate-800 transition">Back to Home</button>
         </div>
       </div>
 
     </div>
-
   </main>
 
-  <!-- FOOTER -->
   <footer class="bg-slate-900 text-slate-400 py-6 text-center text-sm mt-auto">
     <p>2026 ASA NOVA Technologies (Pty) Ltd. All rights reserved.</p>
     <p class="mt-1 text-xs">UNMUTE is a proud South African initiative. Silence Ends Here.</p>
   </footer>
 
   <script>
-    // Mock schools database
     const schools = [
-      { name: "Alexandra Secondary School", emis: "301234567", type: "highschool" },
-      { name: "Linden Primary School", emis: "201987654", type: "primary" },
-      { name: "Hillbrow Comprehensive High", emis: "302345678", type: "highschool" },
-      { name: "Soweto East Primary", emis: "202876543", type: "primary" },
-      { name: "Durbanville High School", emis: "401112223", type: "highschool" }
+      { name: "Krugersdorp High School", emis: "301234567", type: "highschool" },
+      { name: "Maraisburg High School", emis: "301234568", type: "highschool" },
+      { name: "Florida High School", emis: "301234569", type: "highschool" },
+      { name: "Randfontein Secondary School", emis: "301234570", type: "highschool" },
+      { name: "Westonaria High School", emis: "301234571", type: "highschool" },
+      { name: "Hoerskool Monument", emis: "301234572", type: "highschool" },
+      { name: "Krugersdorp Primary School", emis: "201234567", type: "primary" },
+      { name: "Maraisburg Primary School", emis: "201234568", type: "primary" },
+      { name: "Florida Park Primary School", emis: "201234569", type: "primary" },
+      { name: "Kagiso Primary School", emis: "201234570", type: "primary" },
+      { name: "Randfontein Primary School", emis: "201234571", type: "primary" },
+      { name: "Lengau Primary School", emis: "201234572", type: "primary" },
+      { name: "Matlhasedi Primary School", emis: "201234573", type: "primary" }
     ];
+
+    const triageRules = {
+      'Physical assault': { level: 'Critical', color: 'red', icon: '🔴', desc: 'Immediate attention required. Your case will be prioritised.' },
+      'Sexual harassment': { level: 'Critical', color: 'red', icon: '🔴', desc: 'Immediate attention required. Your case will be prioritised.' },
+      'Threats and intimidation': { level: 'High', color: 'orange', icon: '🟠', desc: 'This will be treated with urgency.' },
+      'Bullying': { level: 'High', color: 'orange', icon: '🟠', desc: 'This will be treated with urgency.' },
+      'Educator misconduct': { level: 'High', color: 'orange', icon: '🟠', desc: 'This will be treated with urgency.' },
+      'School Transport harassment': { level: 'High', color: 'orange', icon: '🟠', desc: 'This will be treated with urgency.' },
+      'Cyberbullying': { level: 'Medium', color: 'amber', icon: '🟡', desc: 'This will be investigated within standard timelines.' },
+      'Discrimination': { level: 'Medium', color: 'amber', icon: '🟡', desc: 'This will be investigated within standard timelines.' },
+      'Emotional abuse': { level: 'Medium', color: 'amber', icon: '🟡', desc: 'This will be investigated within standard timelines.' },
+      'Unsafe school environment': { level: 'Medium', color: 'amber', icon: '🟡', desc: 'This will be investigated within standard timelines.' },
+      'Other safeguarding concern': { level: 'Low', color: 'blue', icon: '🔵', desc: 'This has been logged and will be reviewed.' }
+    };
 
     const caseDatabase = {};
     let currentSection = '';
     let selectedSchool = null;
     let selectedFeeling = '';
     let selectedIncidentType = '';
+    let selectedLocation = '';
+    let crossSchoolAnswer = '';
+    let otherSchool = null;
+    let currentTriage = null;
     let uploadedFiles = [];
     let reporterData = {};
     let isRecording = false;
     let stepHistory = [];
+    let isAnonymous = false;
 
     function openSection(section) {
       currentSection = section;
@@ -296,14 +359,13 @@
       document.getElementById('landing').classList.add('hidden-section');
       document.getElementById('report-flow').classList.remove('hidden-section');
       document.getElementById('report-flow').classList.add('active-section');
-      
       if (section === 'primary') {
-        document.getElementById('mascot-emoji').textContent = '';
-        document.getElementById('mascot-emoji-2').textContent = '';
+        document.getElementById('mascot-emoji').textContent = '🌈';
+        document.getElementById('mascot-emoji-2').textContent = '🌈';
         document.getElementById('mascot-greeting').textContent = "Hi there! I am Keitumetse, and I am so glad you are here. You are safe with me, and everything you tell me is confidential. Only trusted school adults who can help you will see your information. Ready to talk?";
         document.getElementById('mascot-feeling').textContent = "How are you feeling right now? It is okay to not be okay. Take your time.";
       } else if (section === 'highschool') {
-        document.getElementById('mascot-emoji').textContent = '';
+        document.getElementById('mascot-emoji').textContent = '💙';
         document.getElementById('mascot-emoji-2').textContent = '💙';
         document.getElementById('mascot-greeting').textContent = "Hey, I am Precious. Thanks for reaching out. I know that takes courage. Everything you share stays confidential, and only the school adults who can actually help will see it. Want to talk?";
         document.getElementById('mascot-feeling').textContent = "How are you feeling right now? Whatever it is, it is valid. I am here.";
@@ -313,7 +375,6 @@
         document.getElementById('mascot-greeting').textContent = "Welcome to The Protected Line. This is a confidential channel for educators to report misconduct or incidents. Your identity is protected and only authorized personnel will review your report.";
         document.getElementById('mascot-feeling').textContent = "Please describe the nature of your report.";
       }
-      
       resetForm();
       stepHistory = ['step-intro'];
       showStep('step-intro');
@@ -328,37 +389,42 @@
     }
 
     function resetForm() {
-      selectedSchool = null;
-      selectedFeeling = '';
-      selectedIncidentType = '';
-      uploadedFiles = [];
-      reporterData = {};
+      selectedSchool = null; selectedFeeling = ''; selectedIncidentType = '';
+      selectedLocation = ''; crossSchoolAnswer = ''; otherSchool = null; currentTriage = null;
+      uploadedFiles = []; reporterData = {}; isAnonymous = false;
       document.getElementById('school-search').value = '';
+      document.getElementById('other-school-input').value = '';
       document.getElementById('incident-description').value = '';
       document.getElementById('reporter-firstname').value = '';
       document.getElementById('reporter-lastname').value = '';
       document.getElementById('reporter-grade').value = '';
       document.getElementById('file-list').innerHTML = '';
       document.getElementById('crisis-banner').classList.add('hidden');
+      document.getElementById('triage-indicator').classList.add('hidden');
       document.getElementById('mic-status').textContent = 'Tap to record your voice';
       document.getElementById('mic-btn').classList.remove('pulse-mic', 'bg-red-500');
       document.getElementById('mic-btn').classList.add('bg-pink-500');
+      document.getElementById('name-fields').classList.remove('hidden');
+      document.getElementById('other-school-search').classList.add('hidden');
       isRecording = false;
-      
-      document.querySelectorAll('.feeling-btn, .incident-type').forEach(b => {
+      document.querySelectorAll('.feeling-btn, .incident-type, .anon-btn, .location-btn, .cross-btn').forEach(b => {
         b.classList.remove('border-cyan-500', 'bg-cyan-50');
       });
-      
-      ['btn-feeling', 'btn-name', 'btn-school', 'btn-incident'].forEach(id => {
-        const btn = document.getElementById(id);
+      var firstAnonBtn = document.querySelector('.anon-btn');
+      if (firstAnonBtn) {
+        firstAnonBtn.classList.add('border-cyan-500', 'bg-cyan-50');
+        firstAnonBtn.classList.remove('border-slate-200');
+      }
+      ['btn-feeling', 'btn-name', 'btn-school', 'btn-incident', 'btn-context'].forEach(function(id) {
+        var btn = document.getElementById(id);
         btn.disabled = true;
         btn.className = 'w-full bg-slate-200 text-slate-400 font-bold py-4 rounded-2xl transition cursor-not-allowed';
       });
     }
 
     function showStep(stepId) {
-      const steps = ['step-intro', 'step-feeling', 'step-name', 'step-school', 'step-incident', 'step-confirm'];
-      steps.forEach(s => {
+      var steps = ['step-intro', 'step-feeling', 'step-name', 'step-school', 'step-incident', 'step-context', 'step-confirm'];
+      steps.forEach(function(s) {
         document.getElementById(s).classList.add('hidden-section');
         document.getElementById(s).classList.remove('active-section');
       });
@@ -375,52 +441,140 @@
     function goBack() {
       if (stepHistory.length > 1) {
         stepHistory.pop();
-        const previousStep = stepHistory[stepHistory.length - 1];
+        var previousStep = stepHistory[stepHistory.length - 1];
         showStep(previousStep);
       }
     }
 
     function selectFeeling(feeling, btnElement) {
       selectedFeeling = feeling;
-      document.querySelectorAll('.feeling-btn').forEach(b => {
-        b.classList.remove('border-cyan-500', 'bg-cyan-50');
-      });
+      document.querySelectorAll('.feeling-btn').forEach(function(b) { b.classList.remove('border-cyan-500', 'bg-cyan-50'); });
       btnElement.classList.add('border-cyan-500', 'bg-cyan-50');
-      
-      const btn = document.getElementById('btn-feeling');
+      var btn = document.getElementById('btn-feeling');
       btn.disabled = false;
       btn.className = 'w-full bg-gradient-to-r from-cyan-600 to-blue-700 text-white font-bold py-4 rounded-2xl hover:opacity-90 transition shadow-lg';
     }
 
+    function toggleAnonymity(anon, btnElement) {
+      isAnonymous = anon;
+      document.querySelectorAll('.anon-btn').forEach(function(b) { b.classList.remove('border-cyan-500', 'bg-cyan-50'); b.classList.add('border-slate-200'); });
+      btnElement.classList.remove('border-slate-200');
+      btnElement.classList.add('border-cyan-500', 'bg-cyan-50');
+      var nameFields = document.getElementById('name-fields');
+      var btn = document.getElementById('btn-name');
+      if (anon) {
+        nameFields.classList.add('hidden');
+        btn.disabled = false;
+        btn.className = 'mt-6 w-full bg-gradient-to-r from-cyan-600 to-blue-700 text-white font-bold py-4 rounded-2xl hover:opacity-90 transition shadow-lg';
+      } else {
+        nameFields.classList.remove('hidden');
+        checkNameFields();
+      }
+    }
+
+    function checkNameFields() {
+      if (isAnonymous) return;
+      var hasName = document.getElementById('reporter-firstname').value && document.getElementById('reporter-lastname').value && document.getElementById('reporter-grade').value;
+      var btn = document.getElementById('btn-name');
+      if (hasName) {
+        btn.disabled = false;
+        btn.className = 'mt-6 w-full bg-gradient-to-r from-cyan-600 to-blue-700 text-white font-bold py-4 rounded-2xl hover:opacity-90 transition shadow-lg';
+      } else {
+        btn.disabled = true;
+        btn.className = 'mt-6 w-full bg-slate-200 text-slate-400 font-bold py-4 rounded-2xl transition cursor-not-allowed';
+      }
+    }
+
     function selectIncidentType(type, btnElement) {
       selectedIncidentType = type;
-      document.querySelectorAll('.incident-type').forEach(b => {
-        b.classList.remove('border-cyan-500', 'bg-cyan-50');
-      });
+      document.querySelectorAll('.incident-type').forEach(function(b) { b.classList.remove('border-cyan-500', 'bg-cyan-50'); });
       btnElement.classList.add('border-cyan-500', 'bg-cyan-50');
+
+      var triageDiv = document.getElementById('triage-indicator');
+      var triageText = document.getElementById('triage-text');
+      var triageDesc = document.getElementById('triage-desc');
+      currentTriage = triageRules[type];
+
+      if (currentTriage) {
+        triageDiv.classList.remove('hidden', 'border-red-200', 'bg-red-50', 'border-orange-200', 'bg-orange-50', 'border-amber-200', 'bg-amber-50', 'border-blue-200', 'bg-blue-50');
+        if (currentTriage.color === 'red') { triageDiv.classList.add('border-red-200', 'bg-red-50'); }
+        else if (currentTriage.color === 'orange') { triageDiv.classList.add('border-orange-200', 'bg-orange-50'); }
+        else if (currentTriage.color === 'amber') { triageDiv.classList.add('border-amber-200', 'bg-amber-50'); }
+        else { triageDiv.classList.add('border-blue-200', 'bg-blue-50'); }
+        triageText.textContent = currentTriage.icon + ' Priority: ' + currentTriage.level;
+        triageDesc.textContent = currentTriage.desc;
+      }
+
       checkIncidentButton();
     }
 
-    function filterSchools() {
-      const query = document.getElementById('school-search').value.toLowerCase();
-      const list = document.getElementById('school-list');
-      list.innerHTML = '';
-      
-      if (query.length < 2) {
-        list.classList.add('hidden');
-        return;
-      }
-      
-      const filtered = schools.filter(s => s.name.toLowerCase().includes(query)).slice(0, 5);
-      
-      if (filtered.length === 0) {
-        list.innerHTML = '<li class="p-3 text-slate-400 text-sm">No schools found</li>';
+    function selectLocation(location, btnElement) {
+      selectedLocation = location;
+      document.querySelectorAll('.location-btn').forEach(function(b) { b.classList.remove('border-cyan-500', 'bg-cyan-50'); });
+      btnElement.classList.add('border-cyan-500', 'bg-cyan-50');
+      checkContextButton();
+    }
+
+    function toggleCrossSchool(answer, btnElement) {
+      crossSchoolAnswer = answer;
+      document.querySelectorAll('.cross-btn').forEach(function(b) { b.classList.remove('border-cyan-500', 'bg-cyan-50'); });
+      btnElement.classList.add('border-cyan-500', 'bg-cyan-50');
+      var otherSchoolDiv = document.getElementById('other-school-search');
+      if (answer === 'no') {
+        otherSchoolDiv.classList.remove('hidden');
       } else {
-        filtered.forEach(s => {
-          const li = document.createElement('li');
+        otherSchoolDiv.classList.add('hidden');
+        otherSchool = null;
+        document.getElementById('other-school-input').value = '';
+      }
+      checkContextButton();
+    }
+
+    function checkContextButton() {
+      var btn = document.getElementById('btn-context');
+      var isValid = selectedLocation && crossSchoolAnswer;
+      if (crossSchoolAnswer === 'no' && !otherSchool) { isValid = false; }
+      if (isValid) {
+        btn.disabled = false;
+        btn.className = 'w-full bg-gradient-to-r from-cyan-600 to-blue-700 text-white font-bold py-4 rounded-2xl hover:opacity-90 transition shadow-lg';
+      } else {
+        btn.disabled = true;
+        btn.className = 'w-full bg-slate-200 text-slate-400 font-bold py-4 rounded-2xl transition cursor-not-allowed';
+      }
+    }
+
+    function filterSchools() {
+      var query = document.getElementById('school-search').value.toLowerCase();
+      var list = document.getElementById('school-list');
+      list.innerHTML = '';
+      if (query.length < 2) { list.classList.add('hidden'); return; }
+      var filtered = schools.filter(function(s) { return s.name.toLowerCase().includes(query); }).slice(0, 5);
+      if (filtered.length === 0) { list.innerHTML = '<li class="p-3 text-slate-400 text-sm">No schools found</li>'; }
+      else {
+        filtered.forEach(function(s) {
+          var li = document.createElement('li');
           li.className = 'p-3 hover:bg-slate-50 cursor-pointer border-b border-slate-100 text-sm';
           li.textContent = s.name;
-          li.onclick = () => selectSchool(s);
+          li.onclick = function() { selectSchool(s); };
+          list.appendChild(li);
+        });
+      }
+      list.classList.remove('hidden');
+    }
+
+    function filterOtherSchools() {
+      var query = document.getElementById('other-school-input').value.toLowerCase();
+      var list = document.getElementById('other-school-list');
+      list.innerHTML = '';
+      if (query.length < 2) { list.classList.add('hidden'); return; }
+      var filtered = schools.filter(function(s) { return s.name.toLowerCase().includes(query); }).slice(0, 5);
+      if (filtered.length === 0) { list.innerHTML = '<li class="p-3 text-slate-400 text-sm">No schools found</li>'; }
+      else {
+        filtered.forEach(function(s) {
+          var li = document.createElement('li');
+          li.className = 'p-3 hover:bg-slate-50 cursor-pointer border-b border-slate-100 text-sm';
+          li.textContent = s.name;
+          li.onclick = function() { selectOtherSchool(s); };
           list.appendChild(li);
         });
       }
@@ -431,20 +585,25 @@
       selectedSchool = school;
       document.getElementById('school-search').value = school.name;
       document.getElementById('school-list').classList.add('hidden');
-      
-      const btn = document.getElementById('btn-school');
+      var btn = document.getElementById('btn-school');
       btn.disabled = false;
       btn.className = 'w-full bg-gradient-to-r from-cyan-600 to-blue-700 text-white font-bold py-4 rounded-2xl hover:opacity-90 transition shadow-lg';
     }
 
+    function selectOtherSchool(school) {
+      otherSchool = school;
+      document.getElementById('other-school-input').value = school.name;
+      document.getElementById('other-school-list').classList.add('hidden');
+      checkContextButton();
+    }
+
     function handleFileUpload(input) {
-      const files = Array.from(input.files);
+      var files = Array.from(input.files);
       uploadedFiles = files;
-      const fileList = document.getElementById('file-list');
+      var fileList = document.getElementById('file-list');
       fileList.innerHTML = '';
-      
-      files.forEach(file => {
-        const div = document.createElement('div');
+      files.forEach(function(file) {
+        var div = document.createElement('div');
         div.className = 'text-xs bg-white p-2 rounded-lg mt-2 border border-slate-200';
         div.textContent = '📎 ' + file.name + ' (' + (file.size/1024).toFixed(1) + ' KB)';
         fileList.appendChild(div);
@@ -453,12 +612,10 @@
     }
 
     function toggleMic() {
-      const btn = document.getElementById('mic-btn');
-      const status = document.getElementById('mic-status');
-      const textarea = document.getElementById('incident-description');
-      
+      var btn = document.getElementById('mic-btn');
+      var status = document.getElementById('mic-status');
+      var textarea = document.getElementById('incident-description');
       isRecording = !isRecording;
-      
       if (isRecording) {
         btn.classList.add('pulse-mic', 'bg-red-500');
         btn.classList.remove('bg-pink-500');
@@ -474,22 +631,16 @@
     }
 
     function checkCrisis() {
-      const text = document.getElementById('incident-description').value.toLowerCase();
-      const crisisWords = ['hurt myself', 'suicide', 'kill', 'knife', 'gun', 'weapon', 'abuse at home', 'immediate danger', 'beat me', 'hit me'];
-      const isCrisis = crisisWords.some(word => text.includes(word));
-      
-      const banner = document.getElementById('crisis-banner');
-      if (isCrisis) {
-        banner.classList.remove('hidden');
-      } else {
-        banner.classList.add('hidden');
-      }
+      var text = document.getElementById('incident-description').value.toLowerCase();
+      var crisisWords = ['hurt myself', 'suicide', 'kill', 'knife', 'gun', 'weapon', 'abuse at home', 'immediate danger', 'beat me', 'hit me'];
+      var isCrisis = crisisWords.some(function(word) { return text.includes(word); });
+      var banner = document.getElementById('crisis-banner');
+      if (isCrisis) { banner.classList.remove('hidden'); } else { banner.classList.add('hidden'); }
     }
 
     function checkIncidentButton() {
-      const description = document.getElementById('incident-description').value;
-      const btn = document.getElementById('btn-incident');
-      
+      var description = document.getElementById('incident-description').value;
+      var btn = document.getElementById('btn-incident');
       if (selectedIncidentType && description.length > 5) {
         btn.disabled = false;
         btn.className = 'w-full bg-gradient-to-r from-cyan-600 to-blue-700 text-white font-bold py-4 rounded-2xl hover:opacity-90 transition shadow-lg';
@@ -499,78 +650,57 @@
       }
     }
 
-    ['reporter-firstname', 'reporter-lastname', 'reporter-grade'].forEach(id => {
-      document.getElementById(id).addEventListener('input', () => {
-        const hasName = document.getElementById('reporter-firstname').value && 
-                       document.getElementById('reporter-lastname').value && 
-                       document.getElementById('reporter-grade').value;
-        const btn = document.getElementById('btn-name');
-        if (hasName) {
-          btn.disabled = false;
-          btn.className = 'mt-6 w-full bg-gradient-to-r from-cyan-600 to-blue-700 text-white font-bold py-4 rounded-2xl hover:opacity-90 transition shadow-lg';
-        } else {
-          btn.disabled = true;
-          btn.className = 'mt-6 w-full bg-slate-200 text-slate-400 font-bold py-4 rounded-2xl transition cursor-not-allowed';
-        }
-      });
+    ['reporter-firstname', 'reporter-lastname', 'reporter-grade'].forEach(function(id) {
+      document.getElementById(id).addEventListener('input', checkNameFields);
     });
-
     document.getElementById('incident-description').addEventListener('input', checkIncidentButton);
 
     function submitReport() {
       reporterData = {
-        firstName: document.getElementById('reporter-firstname').value,
-        lastName: document.getElementById('reporter-lastname').value,
-        grade: document.getElementById('reporter-grade').value,
+        firstName: isAnonymous ? 'Anonymous' : document.getElementById('reporter-firstname').value,
+        lastName: isAnonymous ? '' : document.getElementById('reporter-lastname').value,
+        grade: isAnonymous ? 'Unknown' : document.getElementById('reporter-grade').value,
+        isAnonymous: isAnonymous,
         feeling: selectedFeeling,
         school: selectedSchool,
         incidentType: selectedIncidentType,
+        location: selectedLocation,
+        crossSchoolAnswer: crossSchoolAnswer,
+        otherSchool: otherSchool,
+        triage: currentTriage ? currentTriage.level : 'Medium',
         description: document.getElementById('incident-description').value,
-        files: uploadedFiles.map(f => f.name),
+        files: uploadedFiles.map(function(f) { return f.name; }),
         timestamp: new Date().toISOString()
       };
-      
-      const prefix = currentSection === 'primary' ? 'KC' : currentSection === 'highschool' ? 'DC' : 'TC';
-      const year = new Date().getFullYear();
-      const num = Math.floor(10000 + Math.random() * 90000);
-      const caseNum = prefix + '-' + year + '-' + num;
-      
-      caseDatabase[caseNum] = {
-        ...reporterData,
-        status: 'Submitted',
-        timeline: [{ date: new Date().toISOString(), action: 'Report submitted' }]
-      };
-      
+
+      var prefix = currentSection === 'primary' ? 'KC' : currentSection === 'highschool' ? 'DC' : 'TC';
+      var year = new Date().getFullYear();
+      var num = Math.floor(10000 + Math.random() * 90000);
+      var caseNum = prefix + '-' + year + '-' + num;
+
+      caseDatabase[caseNum] = Object.assign({}, reporterData, { status: 'Acknowledged', timeline: [{ date: new Date().toISOString(), action: 'Report submitted and acknowledged' }] });
+
       document.getElementById('final-case-number').textContent = caseNum;
+
+      var confirmTriage = document.getElementById('confirm-triage');
+      if (currentTriage) {
+        var bgColor = currentTriage.color === 'red' ? 'bg-red-50 border-red-200' : currentTriage.color === 'orange' ? 'bg-orange-50 border-orange-200' : currentTriage.color === 'amber' ? 'bg-amber-50 border-amber-200' : 'bg-blue-50 border-blue-200';
+        confirmTriage.className = 'rounded-xl p-4 mb-6 text-left border-2 ' + bgColor;
+        confirmTriage.innerHTML = '<p class="font-bold text-sm">' + currentTriage.icon + ' Your case has been classified as: ' + currentTriage.level + '</p><p class="text-xs mt-1 text-slate-600">' + currentTriage.desc + '</p>';
+      }
+
       stepHistory.push('step-confirm');
       showStep('step-confirm');
     }
 
     function checkCaseStatus() {
-      const caseNum = document.getElementById('case-check-input').value.trim().toUpperCase();
-      const resultDiv = document.getElementById('case-status-result');
-      
-      if (!caseNum) {
-        alert('Please enter a case number');
-        return;
-      }
-      
-      const caseData = caseDatabase[caseNum];
-      
+      var caseNum = document.getElementById('case-check-input').value.trim().toUpperCase();
+      var resultDiv = document.getElementById('case-status-result');
+      if (!caseNum) { alert('Please enter a case number'); return; }
+      var caseData = caseDatabase[caseNum];
       if (caseData) {
         resultDiv.classList.remove('hidden');
-        resultDiv.innerHTML = `
-          <div class="space-y-3">
-            <div class="flex justify-between items-center">
-              <span class="font-semibold">Status:</span>
-              <span class="bg-cyan-100 text-cyan-800 px-3 py-1 rounded-full text-sm font-semibold">${caseData.status}</span>
-            </div>
-            <div class="flex justify-between items-center">
-              <span class="font-semibold">Submitted:</span>
-              <span class="text-sm">${new Date(caseData.timestamp).toLocaleDateString()}</span>
-            </div>
-          </div>
-        `;
+        resultDiv.innerHTML = '<div class="space-y-3"><div class="flex justify-between items-center"><span class="font-semibold">Status:</span><span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">' + caseData.status + '</span></div><div class="flex justify-between items-center"><span class="font-semibold">Priority:</span><span class="font-semibold">' + caseData.triage + '</span></div><div class="flex justify-between items-center"><span class="font-semibold">Submitted:</span><span class="text-sm">' + new Date(caseData.timestamp).toLocaleString() + '</span></div></div>';
       } else {
         resultDiv.classList.remove('hidden');
         resultDiv.innerHTML = '<p class="text-red-600 text-center font-semibold">Case number not found. Please check and try again.</p>';
