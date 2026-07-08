@@ -63,13 +63,14 @@
         <button onclick="openSection('teachers')" class="group relative overflow-hidden rounded-3xl p-8 text-left transition-all hover:scale-105 hover:shadow-2xl border-2 border-slate-200">
           <div class="absolute inset-0 gradient-teachers opacity-95"></div>
           <div class="relative z-10 text-white">
-            <div class="text-6xl mb-4">🛡️</div>
+            <div class="text-6xl mb-4">️</div>
             <h2 class="text-2xl font-bold mb-2">The Protected Line</h2>
             <p class="text-lg font-medium mb-2 text-cyan-400">For Educators</p>
             <p class="text-sm opacity-80">Confidential reporting</p>
           </div>
         </button>
       </div>
+
       <div class="mt-12 bg-white rounded-2xl p-8 shadow-lg border border-slate-100">
         <h3 class="text-xl font-bold text-slate-900 mb-4 text-center">Check Your Case Status</h3>
         <p class="text-slate-500 text-center mb-4">Already submitted a report? Enter your case number below.</p>
@@ -78,6 +79,42 @@
           <button onclick="checkCaseStatus()" class="bg-slate-900 text-white px-6 py-3 rounded-xl font-semibold hover:bg-slate-800 transition">Check</button>
         </div>
         <div id="case-status-result" class="hidden mt-4 p-4 bg-slate-50 rounded-xl"></div>
+        
+        <!-- SATISFACTION CHECK (Hidden by default) -->
+        <div id="satisfaction-check" class="hidden mt-6 p-6 bg-cyan-50 border border-cyan-200 rounded-xl">
+          <p class="font-bold text-cyan-900 mb-3">Are you satisfied with how this was handled?</p>
+          <div class="flex gap-3 mb-4">
+            <button onclick="handleSatisfaction('yes')" class="flex-1 bg-green-600 text-white font-bold py-2 rounded-lg hover:bg-green-700 transition">Yes, I am satisfied</button>
+            <button onclick="handleSatisfaction('no')" class="flex-1 bg-red-600 text-white font-bold py-2 rounded-lg hover:bg-red-700 transition">No, I am not</button>
+          </div>
+          <div id="dissatisfaction-reason" class="hidden">
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Please tell us why so we can escalate this to the District:</label>
+            <textarea id="dissatisfaction-text" rows="3" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none resize-none" placeholder="What went wrong?"></textarea>
+            <button onclick="submitDissatisfaction()" class="mt-3 w-full bg-slate-900 text-white font-bold py-3 rounded-xl hover:bg-slate-800 transition">Escalate to District</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SAFETY HUB -->
+      <div class="mt-12">
+        <h3 class="text-xl font-bold text-slate-900 mb-6 text-center">Your Safety Hub</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition cursor-pointer">
+            <div class="text-3xl mb-3">🛡️</div>
+            <h4 class="font-bold text-slate-900 mb-2">Is this bullying?</h4>
+            <p class="text-sm text-slate-600">Not sure if what you are experiencing is bullying? Check this quick guide to find out.</p>
+          </div>
+          <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition cursor-pointer">
+            <div class="text-3xl mb-3">📱</div>
+            <h4 class="font-bold text-slate-900 mb-2">How to block someone</h4>
+            <p class="text-sm text-slate-600">Quick steps to block and report someone on WhatsApp, Instagram, or TikTok.</p>
+          </div>
+          <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition cursor-pointer">
+            <div class="text-3xl mb-3">⚖️</div>
+            <h4 class="font-bold text-slate-900 mb-2">Your Rights</h4>
+            <p class="text-sm text-slate-600">Every learner in South Africa has the right to a safe school environment. Learn what the law says.</p>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -90,7 +127,7 @@
             <p id="mascot-greeting" class="text-lg text-slate-700 leading-relaxed">Hi there! I am Keitumetse, and I am so glad you are here. You are safe with me, and everything you tell me is confidential. Only trusted school adults who can help you will see your information. Ready to talk?</p>
           </div>
           <div class="mt-4 bg-cyan-50 border border-cyan-200 p-4 rounded-xl max-w-md mx-auto">
-            <p class="text-sm text-cyan-800 font-semibold">🕒 UNMUTE is open 24/7. You can report right now, whether it is midnight, a weekend, or school holidays. We hear you immediately, and the school clock starts on the next school day.</p>
+            <p class="text-sm text-cyan-800 font-semibold"> UNMUTE is open 24/7. You can report right now, whether it is midnight, a weekend, or school holidays. We hear you immediately, and the school clock starts on the next school day.</p>
           </div>
           <button onclick="goToStep('step-feeling')" class="mt-8 w-full bg-gradient-to-r from-orange-400 via-pink-500 to-purple-500 text-white font-bold py-4 rounded-2xl hover:opacity-90 transition shadow-lg">Yes, I am ready</button>
         </div>
@@ -221,7 +258,7 @@
             <div class="grid grid-cols-1 gap-2">
               <button onclick="selectIncidentType('Bullying', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">🚫 Bullying</button>
               <button onclick="selectIncidentType('Physical assault', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">👊 Physical assault</button>
-              <button onclick="selectIncidentType('Threats and intimidation', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">⚠️ Threats and intimidation</button>
+              <button onclick="selectIncidentType('Threats and intimidation', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">️ Threats and intimidation</button>
               <button onclick="selectIncidentType('Cyberbullying', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">📱 Cyberbullying</button>
               <button onclick="selectIncidentType('School Transport harassment', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">🚌 School Transport harassment</button>
               <button onclick="selectIncidentType('Discrimination', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">⚖️ Discrimination</button>
@@ -248,9 +285,14 @@
           </div>
           <div id="crisis-banner" class="hidden mb-6 p-4 bg-red-50 border-2 border-red-200 rounded-xl">
             <p class="font-bold text-red-800 mb-2">We hear you, and you are not alone.</p>
-            <p class="text-sm text-red-700 mb-2">Because you mentioned something serious, please know you can get immediate help right now.</p>
-            <p class="text-sm font-bold text-red-900">Call Childline: 116 (Free and toll free)</p>
-            <p class="text-sm font-bold text-red-900">Call SAPS: 10111</p>
+            <p class="text-sm text-red-700 mb-3">Because you mentioned something serious, please know you can get immediate help right now.</p>
+            <div class="flex flex-col gap-2">
+              <a href="https://wa.me/27115201111" target="_blank" class="flex items-center justify-center gap-2 bg-green-500 text-white font-bold py-3 rounded-xl hover:bg-green-600 transition shadow-md">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                Chat with Childline on WhatsApp
+              </a>
+              <p class="text-xs text-red-800 text-center mt-1">Or call 116 (Free) / SAPS 10111</p>
+            </div>
           </div>
           <div class="mb-6">
             <label class="block text-sm font-semibold text-slate-700 mb-2">Do you have any evidence? (Optional)</label>
@@ -284,6 +326,29 @@
             </div>
           </div>
           
+          <!-- IDENTIFYING THE BULLY (Modified based on your feedback) -->
+          <div id="bully-identification" class="mb-6 bg-slate-50 p-5 rounded-xl border border-slate-200">
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Do you know the name or nickname of the person involved?</label>
+            <p class="text-xs text-slate-500 mb-4">We just need this to help the school find the right person to speak to. This is about finding a solution, not passing blame.</p>
+            <div class="grid grid-cols-2 gap-2 mb-4">
+              <button onclick="toggleBullyInfo('yes', this)" class="bully-btn p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">Yes, I know their name/nickname</button>
+              <button onclick="toggleBullyInfo('no', this)" class="bully-btn p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">No, I don't know</button>
+            </div>
+            <div id="bully-details" class="hidden space-y-3">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">What is their name or nickname?</label>
+                <input type="text" id="bully-name" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none" placeholder="e.g. Thabo, or Sguntsu">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Do you know what grade they are in?</label>
+                <select id="bully-grade" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none">
+                  <option value="">I don't know their grade</option>
+                  <option value="R">Grade R</option><option value="1">Grade 1</option><option value="2">Grade 2</option><option value="3">Grade 3</option><option value="4">Grade 4</option><option value="5">Grade 5</option><option value="6">Grade 6</option><option value="7">Grade 7</option><option value="8">Grade 8</option><option value="9">Grade 9</option><option value="10">Grade 10</option><option value="11">Grade 11</option><option value="12">Grade 12</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
           <div id="duration-field" class="hidden mb-6">
             <label class="block text-sm font-semibold text-slate-700 mb-3">How long has this been going on?</label>
             <select id="issue-duration" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none">
@@ -372,7 +437,7 @@
 
     const triageRules = {
       'Physical assault': { level: 'Critical', color: 'red', icon: '🔴', desc: 'Immediate attention required. Your case will be prioritised.' },
-      'Sexual harassment': { level: 'Critical', color: 'red', icon: '🔴', desc: 'Immediate attention required. Your case will be prioritised.' },
+      'Sexual harassment': { level: 'Critical', color: 'red', icon: '', desc: 'Immediate attention required. Your case will be prioritised.' },
       'Threats and intimidation': { level: 'High', color: 'orange', icon: '🟠', desc: 'This will be treated with urgency.' },
       'Bullying': { level: 'High', color: 'orange', icon: '🟠', desc: 'This will be treated with urgency.' },
       'Educator misconduct': { level: 'High', color: 'orange', icon: '🟠', desc: 'This will be treated with urgency.' },
@@ -381,10 +446,13 @@
       'Discrimination': { level: 'Medium', color: 'amber', icon: '🟡', desc: 'This will be investigated within standard timelines.' },
       'Emotional abuse': { level: 'Medium', color: 'amber', icon: '🟡', desc: 'This will be investigated within standard timelines.' },
       'Unsafe school environment': { level: 'Medium', color: 'amber', icon: '🟡', desc: 'This will be investigated within standard timelines.' },
-      'Other safeguarding concern': { level: 'Low', color: 'blue', icon: '🔵', desc: 'This has been logged and will be reviewed.' }
+      'Other safeguarding concern': { level: 'Low', color: 'blue', icon: '', desc: 'This has been logged and will be reviewed.' }
     };
 
-    const caseDatabase = {};
+    const caseDatabase = {
+      'RESOLVED-123': { status: 'Resolved', triage: 'Medium', timestamp: new Date().toISOString() }
+    };
+
     let currentSection = '';
     let selectedSchool = null;
     let selectedFeeling = '';
@@ -400,6 +468,7 @@
     let stepHistory = [];
     let isAnonymous = false;
     let isTeacher = false;
+    let bullyKnown = '';
 
     function openSection(section) {
       currentSection = section;
@@ -422,7 +491,7 @@
         document.getElementById('mascot-feeling').textContent = "How are you feeling right now? Whatever it is, it is valid. I am here.";
       } else {
         document.getElementById('mascot-emoji').textContent = '🛡️';
-        document.getElementById('mascot-emoji-2').textContent = '🛡️';
+        document.getElementById('mascot-emoji-2').textContent = '️';
         document.getElementById('mascot-greeting').textContent = "Welcome to The Protected Line. This is a confidential channel for educators to report misconduct or incidents. Your identity is protected and only authorized personnel will review your report.";
         document.getElementById('mascot-feeling').textContent = "How are you feeling right now? Please take your time.";
         
@@ -433,6 +502,7 @@
         document.getElementById('grades-taught-field').classList.remove('hidden');
         document.getElementById('school-prompt').textContent = "Which school are you employed at? This ensures your report is routed to the correct district and union representatives.";
         document.getElementById('cross-school-field').classList.add('hidden');
+        document.getElementById('bully-identification').classList.add('hidden');
         document.getElementById('duration-field').classList.remove('hidden');
       }
       
@@ -446,13 +516,15 @@
       document.getElementById('report-flow').classList.add('hidden-section');
       document.getElementById('landing').classList.remove('hidden-section');
       document.getElementById('landing').classList.add('active-section');
+      document.getElementById('case-status-result').classList.add('hidden');
+      document.getElementById('satisfaction-check').classList.add('hidden');
       window.scrollTo(0, 0);
     }
 
     function resetForm() {
       selectedSchool = null; selectedFeeling = ''; selectedAbout = ''; selectedIncidentType = '';
       selectedLocation = ''; crossSchoolAnswer = ''; otherSchool = null; currentTriage = null;
-      uploadedFiles = []; reporterData = {}; isAnonymous = false;
+      uploadedFiles = []; reporterData = {}; isAnonymous = false; bullyKnown = '';
       document.getElementById('school-search').value = '';
       document.getElementById('other-school-input').value = '';
       document.getElementById('incident-description').value = '';
@@ -462,6 +534,8 @@
       document.getElementById('reporter-role').value = '';
       document.getElementById('reporter-grades-taught').value = '';
       document.getElementById('issue-duration').value = '';
+      document.getElementById('bully-name').value = '';
+      document.getElementById('bully-grade').value = '';
       document.getElementById('file-list').innerHTML = '';
       document.getElementById('crisis-banner').classList.add('hidden');
       document.getElementById('triage-indicator').classList.add('hidden');
@@ -470,9 +544,10 @@
       document.getElementById('mic-btn').classList.add('bg-pink-500');
       document.getElementById('name-fields').classList.remove('hidden');
       document.getElementById('other-school-search').classList.add('hidden');
+      document.getElementById('bully-details').classList.add('hidden');
       isRecording = false;
       
-      document.querySelectorAll('.feeling-btn, .incident-type, .anon-btn, .location-btn, .cross-btn, .about-btn').forEach(function(b) {
+      document.querySelectorAll('.feeling-btn, .incident-type, .anon-btn, .location-btn, .cross-btn, .about-btn, .bully-btn').forEach(function(b) {
         b.classList.remove('border-cyan-500', 'bg-cyan-50');
       });
       
@@ -606,6 +681,19 @@
       document.querySelectorAll('.location-btn').forEach(function(b) { b.classList.remove('border-cyan-500', 'bg-cyan-50'); });
       btnElement.classList.add('border-cyan-500', 'bg-cyan-50');
       checkContextButton();
+    }
+
+    function toggleBullyInfo(answer, btnElement) {
+      bullyKnown = answer;
+      document.querySelectorAll('.bully-btn').forEach(function(b) { b.classList.remove('border-cyan-500', 'bg-cyan-50'); });
+      btnElement.classList.add('border-cyan-500', 'bg-cyan-50');
+      
+      var detailsDiv = document.getElementById('bully-details');
+      if (answer === 'yes') {
+        detailsDiv.classList.remove('hidden');
+      } else {
+        detailsDiv.classList.add('hidden');
+      }
     }
 
     function toggleCrossSchool(answer, btnElement) {
@@ -764,6 +852,8 @@
 
     function submitReport() {
       var duration = document.getElementById('issue-duration').value;
+      var bullyName = document.getElementById('bully-name').value;
+      var bullyGrade = document.getElementById('bully-grade').value;
       
       reporterData = {
         firstName: isTeacher ? document.getElementById('reporter-firstname').value : (isAnonymous ? 'Anonymous' : document.getElementById('reporter-firstname').value),
@@ -779,6 +869,9 @@
         incidentType: selectedIncidentType,
         location: selectedLocation,
         duration: duration,
+        bullyKnown: bullyKnown,
+        bullyName: bullyName,
+        bullyGrade: bullyGrade,
         crossSchoolAnswer: crossSchoolAnswer,
         otherSchool: otherSchool,
         triage: currentTriage ? currentTriage.level : 'Medium',
@@ -810,15 +903,42 @@
     function checkCaseStatus() {
       var caseNum = document.getElementById('case-check-input').value.trim().toUpperCase();
       var resultDiv = document.getElementById('case-status-result');
+      var satisfactionDiv = document.getElementById('satisfaction-check');
+      
       if (!caseNum) { alert('Please enter a case number'); return; }
+      
       var caseData = caseDatabase[caseNum];
+      
       if (caseData) {
         resultDiv.classList.remove('hidden');
         resultDiv.innerHTML = '<div class="space-y-3"><div class="flex justify-between items-center"><span class="font-semibold">Status:</span><span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">' + caseData.status + '</span></div><div class="flex justify-between items-center"><span class="font-semibold">Priority:</span><span class="font-semibold">' + caseData.triage + '</span></div><div class="flex justify-between items-center"><span class="font-semibold">Submitted:</span><span class="text-sm">' + new Date(caseData.timestamp).toLocaleString() + '</span></div></div>';
+        
+        if (caseData.status === 'Resolved') {
+          satisfactionDiv.classList.remove('hidden');
+        } else {
+          satisfactionDiv.classList.add('hidden');
+        }
       } else {
         resultDiv.classList.remove('hidden');
+        satisfactionDiv.classList.add('hidden');
         resultDiv.innerHTML = '<p class="text-red-600 text-center font-semibold">Case number not found. Please check and try again.</p>';
       }
+    }
+
+    function handleSatisfaction(answer) {
+      var reasonDiv = document.getElementById('dissatisfaction-reason');
+      if (answer === 'yes') {
+        reasonDiv.classList.add('hidden');
+        document.getElementById('satisfaction-check').innerHTML = '<p class="text-green-700 font-bold text-center">Thank you for your feedback. Your case is now officially closed.</p>';
+      } else {
+        reasonDiv.classList.remove('hidden');
+      }
+    }
+
+    function submitDissatisfaction() {
+      var reason = document.getElementById('dissatisfaction-text').value;
+      if (!reason) { alert('Please tell us why you are not satisfied so we can help.'); return; }
+      document.getElementById('satisfaction-check').innerHTML = '<p class="text-red-700 font-bold text-center">Thank you. Your case has been escalated directly to the District Education Office due to dissatisfaction.</p>';
     }
   </script>
 </body>
