@@ -89,6 +89,9 @@
           <div class="mascot-bubble max-w-md mx-auto">
             <p id="mascot-greeting" class="text-lg text-slate-700 leading-relaxed">Hi there! I am Keitumetse, and I am so glad you are here. You are safe with me, and everything you tell me is confidential. Only trusted school adults who can help you will see your information. Ready to talk?</p>
           </div>
+          <div class="mt-4 bg-cyan-50 border border-cyan-200 p-4 rounded-xl max-w-md mx-auto">
+            <p class="text-sm text-cyan-800 font-semibold">🕒 UNMUTE is open 24/7. You can report right now, whether it is midnight, a weekend, or school holidays. We hear you immediately, and the school clock starts on the next school day.</p>
+          </div>
           <button onclick="goToStep('step-feeling')" class="mt-8 w-full bg-gradient-to-r from-orange-400 via-pink-500 to-purple-500 text-white font-bold py-4 rounded-2xl hover:opacity-90 transition shadow-lg">Yes, I am ready</button>
         </div>
       </div>
@@ -103,7 +106,7 @@
           <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
             <button onclick="selectFeeling('sad', this)" class="feeling-btn p-4 border-2 border-slate-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50 transition text-center">😢<br><span class="text-sm font-semibold">Sad</span></button>
             <button onclick="selectFeeling('scared', this)" class="feeling-btn p-4 border-2 border-slate-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50 transition text-center">😰<br><span class="text-sm font-semibold">Scared</span></button>
-            <button onclick="selectFeeling('angry', this)" class="feeling-btn p-4 border-2 border-slate-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50 transition text-center"><br><span class="text-sm font-semibold">Angry</span></button>
+            <button onclick="selectFeeling('angry', this)" class="feeling-btn p-4 border-2 border-slate-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50 transition text-center">😠<br><span class="text-sm font-semibold">Angry</span></button>
             <button onclick="selectFeeling('confused', this)" class="feeling-btn p-4 border-2 border-slate-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50 transition text-center">😕<br><span class="text-sm font-semibold">Confused</span></button>
             <button onclick="selectFeeling('hurt', this)" class="feeling-btn p-4 border-2 border-slate-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50 transition text-center">💔<br><span class="text-sm font-semibold">Hurt</span></button>
             <button onclick="selectFeeling('other', this)" class="feeling-btn p-4 border-2 border-slate-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50 transition text-center">😶<br><span class="text-sm font-semibold">Other</span></button>
@@ -136,9 +139,9 @@
         <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-100">
           <button onclick="goBack()" class="text-slate-500 mb-4 font-semibold hover:text-slate-900">← Back</button>
           <div class="mascot-bubble max-w-md mx-auto mb-6">
-            <p class="text-lg text-slate-700 mb-3">To help you properly, I need to know if you want to share your name. <strong class="text-cyan-600">Your identity is completely protected.</strong></p>
+            <p id="name-prompt" class="text-lg text-slate-700 mb-3">To help you properly, I need to know if you want to share your name. <strong class="text-cyan-600">Your identity is completely protected.</strong></p>
           </div>
-          <div class="mb-6">
+          <div id="anonymity-toggle" class="mb-6">
             <label class="block text-sm font-semibold text-slate-700 mb-3">Do you want to share your name?</label>
             <div class="grid grid-cols-1 gap-3">
               <button onclick="toggleAnonymity(false, this)" class="anon-btn p-4 text-left border-2 border-cyan-500 bg-cyan-50 rounded-xl transition">
@@ -160,11 +163,34 @@
               <label class="block text-sm font-semibold text-slate-700 mb-2">Your Last Name</label>
               <input type="text" id="reporter-lastname" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none" placeholder="e.g. Mokoena">
             </div>
-            <div>
+            <div id="grade-field">
               <label class="block text-sm font-semibold text-slate-700 mb-2">Your Grade</label>
               <select id="reporter-grade" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none">
                 <option value="">Select your grade</option>
                 <option value="R">Grade R</option><option value="1">Grade 1</option><option value="2">Grade 2</option><option value="3">Grade 3</option><option value="4">Grade 4</option><option value="5">Grade 5</option><option value="6">Grade 6</option><option value="7">Grade 7</option><option value="8">Grade 8</option><option value="9">Grade 9</option><option value="10">Grade 10</option><option value="11">Grade 11</option><option value="12">Grade 12</option>
+              </select>
+            </div>
+            <div id="role-field" class="hidden">
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Your Role at the School</label>
+              <select id="reporter-role" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none">
+                <option value="">Select your role</option>
+                <option value="Educator">Educator / Teacher</option>
+                <option value="HOD">Head of Department</option>
+                <option value="SMT">School Management Team</option>
+                <option value="Support">Support Staff</option>
+                <option value="SGB">School Governing Body</option>
+              </select>
+            </div>
+            <div id="grades-taught-field" class="hidden">
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Which grades do you teach?</label>
+              <select id="reporter-grades-taught" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none">
+                <option value="">Select grades</option>
+                <option value="Foundation">Foundation Phase (Grade R to 3)</option>
+                <option value="Intermediate">Intermediate Phase (Grade 4 to 6)</option>
+                <option value="Senior">Senior Phase (Grade 7 to 9)</option>
+                <option value="FET">FET Phase (Grade 10 to 12)</option>
+                <option value="Multiple">Multiple Phases</option>
+                <option value="None">Not applicable (Admin or Support)</option>
               </select>
             </div>
           </div>
@@ -176,7 +202,7 @@
         <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-100">
           <button onclick="goBack()" class="text-slate-500 mb-4 font-semibold hover:text-slate-900">← Back</button>
           <div class="mascot-bubble max-w-md mx-auto mb-6">
-            <p class="text-lg text-slate-700">Which school do you attend? This helps me route your report to the right people who can help.</p>
+            <p id="school-prompt" class="text-lg text-slate-700">Which school do you attend? This helps me route your report to the right people who can help.</p>
           </div>
           <input type="text" id="school-search" placeholder="Start typing your school name" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none mb-2" oninput="filterSchools()">
           <ul id="school-list" class="max-h-40 overflow-y-auto border border-slate-100 rounded-xl hidden bg-white mb-4"></ul>
@@ -194,9 +220,9 @@
             <label class="block text-sm font-semibold text-slate-700 mb-3">What type of incident was it?</label>
             <div class="grid grid-cols-1 gap-2">
               <button onclick="selectIncidentType('Bullying', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">🚫 Bullying</button>
-              <button onclick="selectIncidentType('Physical assault', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition"> Physical assault</button>
+              <button onclick="selectIncidentType('Physical assault', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">👊 Physical assault</button>
               <button onclick="selectIncidentType('Threats and intimidation', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">⚠️ Threats and intimidation</button>
-              <button onclick="selectIncidentType('Cyberbullying', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition"> Cyberbullying</button>
+              <button onclick="selectIncidentType('Cyberbullying', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">📱 Cyberbullying</button>
               <button onclick="selectIncidentType('School Transport harassment', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">🚌 School Transport harassment</button>
               <button onclick="selectIncidentType('Discrimination', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">⚖️ Discrimination</button>
               <button onclick="selectIncidentType('Educator misconduct', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">👨‍🏫 Educator misconduct</button>
@@ -216,7 +242,7 @@
             <label class="block text-sm font-semibold text-slate-700 mb-2">Tell me what happened (tap the mic to speak)</label>
             <div class="relative">
               <textarea id="incident-description" rows="5" class="w-full p-3 pr-12 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none resize-none" placeholder="What happened? When? Where? Who was involved?" oninput="checkCrisis()"></textarea>
-              <button onclick="toggleMic()" id="mic-btn" class="absolute bottom-3 right-3 bg-pink-500 text-white p-3 rounded-full hover:bg-pink-600 transition shadow-lg"></button>
+              <button onclick="toggleMic()" id="mic-btn" class="absolute bottom-3 right-3 bg-pink-500 text-white p-3 rounded-full hover:bg-pink-600 transition shadow-lg">🎤</button>
             </div>
             <p id="mic-status" class="text-xs text-slate-400 mt-2 text-right">Tap to record your voice</p>
           </div>
@@ -250,14 +276,26 @@
             <label class="block text-sm font-semibold text-slate-700 mb-3">Where did this happen?</label>
             <div class="grid grid-cols-2 gap-2">
               <button onclick="selectLocation('School grounds', this)" class="location-btn p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">🏫 School grounds</button>
-              <button onclick="selectLocation('Walking to or from school', this)" class="location-btn p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition"> Walking to or from school</button>
+              <button onclick="selectLocation('Walking to or from school', this)" class="location-btn p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">🚶 Walking to or from school</button>
               <button onclick="selectLocation('School transport', this)" class="location-btn p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">🚌 School transport</button>
               <button onclick="selectLocation('Sports event', this)" class="location-btn p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">🏆 Sports event</button>
-              <button onclick="selectLocation('Online', this)" class="location-btn p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition"> Online</button>
+              <button onclick="selectLocation('Online', this)" class="location-btn p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">📱 Online</button>
               <button onclick="selectLocation('Other', this)" class="location-btn p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">📝 Other</button>
             </div>
           </div>
-          <div class="mb-6">
+          
+          <div id="duration-field" class="hidden mb-6">
+            <label class="block text-sm font-semibold text-slate-700 mb-3">How long has this been going on?</label>
+            <select id="issue-duration" class="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none">
+              <option value="">Select duration</option>
+              <option value="First time">This is the first time</option>
+              <option value="Few weeks">A few weeks</option>
+              <option value="Few months">A few months</option>
+              <option value="Over a year">More than a year</option>
+            </select>
+          </div>
+
+          <div id="cross-school-field" class="mb-6">
             <label class="block text-sm font-semibold text-slate-700 mb-3">Did the other learner attend your school?</label>
             <div class="grid grid-cols-1 gap-2">
               <button onclick="toggleCrossSchool('yes', this)" class="cross-btn p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">Yes, same school</button>
@@ -278,7 +316,7 @@
         <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-100 text-center">
           <div class="text-6xl mb-4">✅</div>
           <h2 class="text-3xl font-bold text-slate-900 mb-4">Thank you for trusting me!</h2>
-          <p class="text-slate-600 mb-6">Your report has been received. We have received your report and an investigation will begin within the next 48 school hours.</p>
+          <p class="text-slate-600 mb-6">Your report has been received. An investigation will begin within the next 24 school hours (approx. 4 school days).</p>
           <div class="bg-slate-50 border-2 border-cyan-500 rounded-2xl p-6 mb-6">
             <p class="text-sm text-slate-500 uppercase tracking-wide font-semibold mb-2">Your Case Number</p>
             <p id="final-case-number" class="text-4xl font-black text-slate-900 tracking-wider font-mono">---</p>
@@ -289,7 +327,7 @@
             <p class="font-semibold text-slate-900 mb-3">What happens next?</p>
             <div class="space-y-3 text-sm">
               <div class="flex gap-3 items-start">
-                <span class="bg-green-100 text-green-800 px-2 py-0.5 rounded-full text-xs font-bold whitespace-nowrap">48 school hours</span>
+                <span class="bg-green-100 text-green-800 px-2 py-0.5 rounded-full text-xs font-bold whitespace-nowrap">24 school hours</span>
                 <span class="text-slate-700">Your case will be acknowledged, risk assessed, and assigned to a responsible staff member.</span>
               </div>
               <div class="flex gap-3 items-start">
@@ -341,8 +379,8 @@
       'School Transport harassment': { level: 'High', color: 'orange', icon: '🟠', desc: 'This will be treated with urgency.' },
       'Cyberbullying': { level: 'Medium', color: 'amber', icon: '🟡', desc: 'This will be investigated within standard timelines.' },
       'Discrimination': { level: 'Medium', color: 'amber', icon: '🟡', desc: 'This will be investigated within standard timelines.' },
-      'Emotional abuse': { level: 'Medium', color: 'amber', icon: '', desc: 'This will be investigated within standard timelines.' },
-      'Unsafe school environment': { level: 'Medium', color: 'amber', icon: '', desc: 'This will be investigated within standard timelines.' },
+      'Emotional abuse': { level: 'Medium', color: 'amber', icon: '🟡', desc: 'This will be investigated within standard timelines.' },
+      'Unsafe school environment': { level: 'Medium', color: 'amber', icon: '🟡', desc: 'This will be investigated within standard timelines.' },
       'Other safeguarding concern': { level: 'Low', color: 'blue', icon: '🔵', desc: 'This has been logged and will be reviewed.' }
     };
 
@@ -361,13 +399,17 @@
     let isRecording = false;
     let stepHistory = [];
     let isAnonymous = false;
+    let isTeacher = false;
 
     function openSection(section) {
       currentSection = section;
+      isTeacher = (section === 'teachers');
+      
       document.getElementById('landing').classList.remove('active-section');
       document.getElementById('landing').classList.add('hidden-section');
       document.getElementById('report-flow').classList.remove('hidden-section');
       document.getElementById('report-flow').classList.add('active-section');
+      
       if (section === 'primary') {
         document.getElementById('mascot-emoji').textContent = '🌈';
         document.getElementById('mascot-emoji-2').textContent = '🌈';
@@ -382,8 +424,18 @@
         document.getElementById('mascot-emoji').textContent = '🛡️';
         document.getElementById('mascot-emoji-2').textContent = '🛡️';
         document.getElementById('mascot-greeting').textContent = "Welcome to The Protected Line. This is a confidential channel for educators to report misconduct or incidents. Your identity is protected and only authorized personnel will review your report.";
-        document.getElementById('mascot-feeling').textContent = "Please describe the nature of your report.";
+        document.getElementById('mascot-feeling').textContent = "How are you feeling right now? Please take your time.";
+        
+        document.getElementById('name-prompt').textContent = "To process your report securely, we require your employment details. Your identity is strictly protected under POPIA.";
+        document.getElementById('anonymity-toggle').classList.add('hidden');
+        document.getElementById('grade-field').classList.add('hidden');
+        document.getElementById('role-field').classList.remove('hidden');
+        document.getElementById('grades-taught-field').classList.remove('hidden');
+        document.getElementById('school-prompt').textContent = "Which school are you employed at? This ensures your report is routed to the correct district and union representatives.";
+        document.getElementById('cross-school-field').classList.add('hidden');
+        document.getElementById('duration-field').classList.remove('hidden');
       }
+      
       resetForm();
       stepHistory = ['step-intro'];
       showStep('step-intro');
@@ -407,6 +459,9 @@
       document.getElementById('reporter-firstname').value = '';
       document.getElementById('reporter-lastname').value = '';
       document.getElementById('reporter-grade').value = '';
+      document.getElementById('reporter-role').value = '';
+      document.getElementById('reporter-grades-taught').value = '';
+      document.getElementById('issue-duration').value = '';
       document.getElementById('file-list').innerHTML = '';
       document.getElementById('crisis-banner').classList.add('hidden');
       document.getElementById('triage-indicator').classList.add('hidden');
@@ -416,14 +471,19 @@
       document.getElementById('name-fields').classList.remove('hidden');
       document.getElementById('other-school-search').classList.add('hidden');
       isRecording = false;
-      document.querySelectorAll('.feeling-btn, .incident-type, .anon-btn, .location-btn, .cross-btn, .about-btn').forEach(b => {
+      
+      document.querySelectorAll('.feeling-btn, .incident-type, .anon-btn, .location-btn, .cross-btn, .about-btn').forEach(function(b) {
         b.classList.remove('border-cyan-500', 'bg-cyan-50');
       });
-      var firstAnonBtn = document.querySelector('.anon-btn');
-      if (firstAnonBtn) {
-        firstAnonBtn.classList.add('border-cyan-500', 'bg-cyan-50');
-        firstAnonBtn.classList.remove('border-slate-200');
+      
+      if (!isTeacher) {
+        var firstAnonBtn = document.querySelector('.anon-btn');
+        if (firstAnonBtn) {
+          firstAnonBtn.classList.add('border-cyan-500', 'bg-cyan-50');
+          firstAnonBtn.classList.remove('border-slate-200');
+        }
       }
+      
       ['btn-feeling', 'btn-about', 'btn-name', 'btn-school', 'btn-incident', 'btn-context'].forEach(function(id) {
         var btn = document.getElementById(id);
         btn.disabled = true;
@@ -491,15 +551,30 @@
     }
 
     function checkNameFields() {
-      if (isAnonymous) return;
-      var hasName = document.getElementById('reporter-firstname').value && document.getElementById('reporter-lastname').value && document.getElementById('reporter-grade').value;
-      var btn = document.getElementById('btn-name');
-      if (hasName) {
-        btn.disabled = false;
-        btn.className = 'mt-6 w-full bg-gradient-to-r from-cyan-600 to-blue-700 text-white font-bold py-4 rounded-2xl hover:opacity-90 transition shadow-lg';
+      if (isTeacher) {
+        var hasTeacherInfo = document.getElementById('reporter-firstname').value && 
+                             document.getElementById('reporter-lastname').value && 
+                             document.getElementById('reporter-role').value && 
+                             document.getElementById('reporter-grades-taught').value;
+        var btn = document.getElementById('btn-name');
+        if (hasTeacherInfo) {
+          btn.disabled = false;
+          btn.className = 'mt-6 w-full bg-gradient-to-r from-cyan-600 to-blue-700 text-white font-bold py-4 rounded-2xl hover:opacity-90 transition shadow-lg';
+        } else {
+          btn.disabled = true;
+          btn.className = 'mt-6 w-full bg-slate-200 text-slate-400 font-bold py-4 rounded-2xl transition cursor-not-allowed';
+        }
       } else {
-        btn.disabled = true;
-        btn.className = 'mt-6 w-full bg-slate-200 text-slate-400 font-bold py-4 rounded-2xl transition cursor-not-allowed';
+        if (isAnonymous) return;
+        var hasName = document.getElementById('reporter-firstname').value && document.getElementById('reporter-lastname').value && document.getElementById('reporter-grade').value;
+        var btn = document.getElementById('btn-name');
+        if (hasName) {
+          btn.disabled = false;
+          btn.className = 'mt-6 w-full bg-gradient-to-r from-cyan-600 to-blue-700 text-white font-bold py-4 rounded-2xl hover:opacity-90 transition shadow-lg';
+        } else {
+          btn.disabled = true;
+          btn.className = 'mt-6 w-full bg-slate-200 text-slate-400 font-bold py-4 rounded-2xl transition cursor-not-allowed';
+        }
       }
     }
 
@@ -550,8 +625,16 @@
 
     function checkContextButton() {
       var btn = document.getElementById('btn-context');
-      var isValid = selectedLocation && crossSchoolAnswer;
-      if (crossSchoolAnswer === 'no' && !otherSchool) { isValid = false; }
+      var isValid = selectedLocation;
+      
+      if (isTeacher) {
+        var duration = document.getElementById('issue-duration').value;
+        if (!duration) isValid = false;
+      } else {
+        if (!crossSchoolAnswer) isValid = false;
+        if (crossSchoolAnswer === 'no' && !otherSchool) isValid = false;
+      }
+      
       if (isValid) {
         btn.disabled = false;
         btn.className = 'w-full bg-gradient-to-r from-cyan-600 to-blue-700 text-white font-bold py-4 rounded-2xl hover:opacity-90 transition shadow-lg';
@@ -668,21 +751,34 @@
       }
     }
 
-    ['reporter-firstname', 'reporter-lastname', 'reporter-grade'].forEach(function(id) {
-      document.getElementById(id).addEventListener('input', checkNameFields);
+    ['reporter-firstname', 'reporter-lastname', 'reporter-grade', 'reporter-role', 'reporter-grades-taught'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener('input', checkNameFields);
+      if (el) el.addEventListener('change', checkNameFields);
     });
+    
+    var durationEl = document.getElementById('issue-duration');
+    if (durationEl) durationEl.addEventListener('change', checkContextButton);
+
+    document.getElementById('incident-description').addEventListener('input', checkIncidentButton);
 
     function submitReport() {
+      var duration = document.getElementById('issue-duration').value;
+      
       reporterData = {
-        firstName: isAnonymous ? 'Anonymous' : document.getElementById('reporter-firstname').value,
-        lastName: isAnonymous ? '' : document.getElementById('reporter-lastname').value,
-        grade: isAnonymous ? 'Unknown' : document.getElementById('reporter-grade').value,
+        firstName: isTeacher ? document.getElementById('reporter-firstname').value : (isAnonymous ? 'Anonymous' : document.getElementById('reporter-firstname').value),
+        lastName: isTeacher ? document.getElementById('reporter-lastname').value : (isAnonymous ? '' : document.getElementById('reporter-lastname').value),
+        grade: isTeacher ? 'Staff' : (isAnonymous ? 'Unknown' : document.getElementById('reporter-grade').value),
+        role: isTeacher ? document.getElementById('reporter-role').value : 'Learner',
+        gradesTaught: isTeacher ? document.getElementById('reporter-grades-taught').value : null,
         isAnonymous: isAnonymous,
+        isTeacher: isTeacher,
         about: selectedAbout,
         feeling: selectedFeeling,
         school: selectedSchool,
         incidentType: selectedIncidentType,
         location: selectedLocation,
+        duration: duration,
         crossSchoolAnswer: crossSchoolAnswer,
         otherSchool: otherSchool,
         triage: currentTriage ? currentTriage.level : 'Medium',
