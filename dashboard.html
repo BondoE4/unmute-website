@@ -20,7 +20,6 @@
 </head>
 <body class="bg-[#0B0F19] text-slate-200 min-h-screen flex flex-col">
 
-  <!-- LOGIN SCREEN -->
   <div id="login-screen" class="active-section flex-1 flex items-center justify-center p-4">
     <div class="w-full max-w-md">
       <div class="text-center mb-8">
@@ -48,10 +47,8 @@
     </div>
   </div>
 
-  <!-- DASHBOARD SCREEN -->
   <div id="dashboard-screen" class="hidden-section flex-1 flex flex-col md:flex-row">
     
-    <!-- SIDEBAR -->
     <aside class="w-full md:w-64 bg-[#151B2B] border-r border-slate-800 p-6 flex flex-col">
       <div class="mb-8">
         <h1 class="text-2xl font-black text-white">un<span class="text-cyan-400">mute</span></h1>
@@ -66,10 +63,8 @@
       <button onclick="logout()" class="mt-auto p-3 text-slate-400 hover:text-red-400 hover:bg-red-900/10 rounded-xl font-semibold transition text-left">Logout</button>
     </aside>
 
-    <!-- MAIN CONTENT -->
     <main class="flex-1 p-6 md:p-8 overflow-y-auto">
       
-      <!-- HEADER -->
       <div class="flex justify-between items-center mb-8">
         <div>
           <h2 class="text-3xl font-bold text-white" id="page-title">Case Management</h2>
@@ -84,9 +79,7 @@
         </div>
       </div>
 
-      <!-- CASES VIEW -->
       <div id="view-cases" class="active-section">
-        <!-- STATS CARDS -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           <div class="bg-[#151B2B] border border-red-900/30 rounded-2xl p-5">
             <p class="text-slate-400 text-sm font-semibold mb-1">🔴 Critical</p>
@@ -104,13 +97,12 @@
             <p class="text-xs text-amber-400 mt-2">Standard timeline</p>
           </div>
           <div class="bg-[#151B2B] border border-blue-900/30 rounded-2xl p-5">
-            <p class="text-slate-400 text-sm font-semibold mb-1"> Low</p>
+            <p class="text-slate-400 text-sm font-semibold mb-1">🔵 Low</p>
             <p class="text-3xl font-bold text-blue-400" id="stat-low">76</p>
             <p class="text-xs text-blue-400 mt-2">General concern</p>
           </div>
         </div>
 
-        <!-- CASES TABLE -->
         <div class="bg-[#151B2B] border border-slate-800 rounded-2xl overflow-hidden">
           <div class="p-5 border-b border-slate-800 flex justify-between items-center">
             <h3 class="text-lg font-bold text-white">Recent Reports</h3>
@@ -134,20 +126,18 @@
                   <th class="p-4">Reporter</th>
                   <th class="p-4">Location</th>
                   <th class="p-4">Submitted</th>
-                  <th class="p-4">SLA Timer (48h)</th>
+                  <th class="p-4">SLA Timer (24h)</th>
                   <th class="p-4">Status</th>
                   <th class="p-4">Action</th>
                 </tr>
               </thead>
               <tbody id="cases-tbody" class="divide-y divide-slate-800 text-sm">
-                <!-- Rows injected via JS -->
               </tbody>
             </table>
           </div>
         </div>
       </div>
 
-      <!-- HOTSPOTS VIEW -->
       <div id="view-hotspots" class="hidden-section">
         <div class="bg-[#151B2B] border border-slate-800 rounded-2xl p-6 mb-6">
           <h3 class="text-lg font-bold text-white mb-4">Community Hotspots & Routes</h3>
@@ -185,7 +175,6 @@
         </div>
       </div>
 
-      <!-- ANALYTICS VIEW -->
       <div id="view-analytics" class="hidden-section">
         <div class="bg-[#151B2B] border border-slate-800 rounded-2xl p-6">
           <h3 class="text-lg font-bold text-white mb-4">Analytics Overview</h3>
@@ -193,7 +182,6 @@
         </div>
       </div>
 
-      <!-- SETTINGS VIEW -->
       <div id="view-settings" class="hidden-section">
         <div class="bg-[#151B2B] border border-slate-800 rounded-2xl p-6">
           <h3 class="text-lg font-bold text-white mb-4">School Settings</h3>
@@ -204,7 +192,6 @@
     </main>
   </div>
 
-  <!-- CASE MODAL -->
   <div id="caseModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeCaseModal()">&times;</span>
@@ -213,66 +200,24 @@
   </div>
 
   <script>
-    // MOCK DATA
     const mockCases = [
-      {
-        id: 'DC-2026-04821', type: 'Physical assault', reporter: 'Sipho M. (Gr 10)', location: 'School grounds', 
-        submitted: '2026-07-04T14:32:00', triage: 'Critical', status: 'Escalated', 
-        desc: 'A group of learners from Grade 11 pushed Sipho to the ground and kicked him. This is the 3rd time this term.',
-        alleged: 'Thabo K. (Gr 11)', flags: ['Repeat Victim']
-      },
-      {
-        id: 'KC-2026-04822', type: 'Threats and intimidation', reporter: 'Lerato K. (Gr 4)', location: 'Walking to or from school', 
-        submitted: '2026-07-06T09:15:00', triage: 'High', status: 'In Progress', 
-        desc: 'Older boys are waiting for Lerato near the taxi rank and demanding money.',
-        alleged: 'Unknown older boys', flags: []
-      },
-      {
-        id: 'DC-2026-04823', type: 'Self Harm / Crisis', reporter: 'Anonymous (Gr 11)', location: 'Online', 
-        submitted: '2026-07-06T11:48:00', triage: 'Critical', status: 'Crisis Lane', 
-        desc: 'Learner posted concerning messages on social media about ending their life.',
-        alleged: 'N/A', flags: ['Crisis Flag']
-      },
-      {
-        id: 'TC-2026-00112', type: 'Educator misconduct', reporter: 'Protected Line (Teacher)', location: 'School grounds', 
-        submitted: '2026-07-05T16:20:00', triage: 'High', status: 'Assigned', 
-        desc: 'Colleague making inappropriate comments. Multiple staff members have noticed.',
-        alleged: 'Mr. X (Staff)', flags: ['Repeat Alleged Perpetrator']
-      },
-      {
-        id: 'KC-2026-04824', type: 'Bullying', reporter: 'Thabo K. (Gr 6)', location: 'School transport', 
-        submitted: '2026-07-06T08:00:00', triage: 'Medium', status: 'Acknowledged', 
-        desc: 'Repeated name calling and exclusion on the school bus.',
-        alleged: 'Sipho M. (Gr 6)', flags: ['Repeat Alleged Perpetrator']
-      },
-      {
-        id: 'DC-2026-04825', type: 'Cyberbullying', reporter: 'Anonymous (Gr 9)', location: 'Online', 
-        submitted: '2026-07-07T10:00:00', triage: 'Low', status: 'Acknowledged', 
-        desc: 'Rumours being spread on a WhatsApp group.',
-        alleged: 'Unknown', flags: []
-      },
-      // NEW CROSS-SCHOOL CASE
-      {
-        id: 'DC-2026-04826', type: 'Physical assault', reporter: 'Masked (Matlhasedi High)', location: 'School transport', 
-        submitted: '2026-07-07T08:30:00', triage: 'High', status: 'District Referral', 
-        desc: 'Allegation of assault on the school transport route involving your learner. The reporting learner is from Matlhasedi High.',
-        alleged: 'Your Learner (Grade 10)', flags: ['Cross-School Referral', 'District Notified'], isCrossSchool: true
-      }
+      { id: 'DC-2026-04821', type: 'Physical assault', reporter: 'Sipho M. (Gr 10)', location: 'School grounds', submitted: '2026-07-04T14:32:00', triage: 'Critical', status: 'Escalated', desc: 'A group of learners from Grade 11 pushed Sipho to the ground and kicked him. This is the 3rd time this term.', alleged: 'Thabo K. (Gr 11)', flags: ['Repeat Victim'] },
+      { id: 'KC-2026-04822', type: 'Threats and intimidation', reporter: 'Lerato K. (Gr 4)', location: 'Walking to or from school', submitted: '2026-07-06T09:15:00', triage: 'High', status: 'In Progress', desc: 'Older boys are waiting for Lerato near the taxi rank and demanding money.', alleged: 'Unknown older boys', flags: [] },
+      { id: 'DC-2026-04823', type: 'Self Harm / Crisis', reporter: 'Anonymous (Gr 11)', location: 'Online', submitted: '2026-07-06T11:48:00', triage: 'Critical', status: 'Crisis Lane', desc: 'Learner posted concerning messages on social media about ending their life.', alleged: 'N/A', flags: ['Crisis Flag'] },
+      { id: 'TC-2026-00112', type: 'Educator misconduct', reporter: 'Protected Line (Teacher)', location: 'School grounds', submitted: '2026-07-05T16:20:00', triage: 'High', status: 'Assigned', desc: 'Colleague making inappropriate comments. Multiple staff members have noticed.', alleged: 'Mr. X (Staff)', flags: ['Repeat Alleged Perpetrator'] },
+      { id: 'KC-2026-04824', type: 'Bullying', reporter: 'Thabo K. (Gr 6)', location: 'School transport', submitted: '2026-07-06T08:00:00', triage: 'Medium', status: 'Acknowledged', desc: 'Repeated name calling and exclusion on the school bus.', alleged: 'Sipho M. (Gr 6)', flags: ['Repeat Alleged Perpetrator'] },
+      { id: 'DC-2026-04825', type: 'Cyberbullying', reporter: 'Anonymous (Gr 9)', location: 'Online', submitted: '2026-07-07T10:00:00', triage: 'Low', status: 'Acknowledged', desc: 'Rumours being spread on a WhatsApp group.', alleged: 'Unknown', flags: [] },
+      { id: 'DC-2026-04826', type: 'Physical assault', reporter: 'Masked (Matlhasedi High)', location: 'School transport', submitted: '2026-07-07T08:30:00', triage: 'High', status: 'District Referral', desc: 'Allegation of assault on the school transport route involving your learner. The reporting learner is from Matlhasedi High.', alleged: 'Your Learner (Grade 10)', flags: ['Cross-School Referral', 'District Notified'], isCrossSchool: true }
     ];
 
-    // SLA TIMER LOGIC (School Hours 08:00 - 14:00 SAST)
     function getSchoolHoursRemaining(submittedDateStr) {
-      const submitted = new Date(submittedDateStr);
-      const now = new Date(); 
-      
-      // Mock calculation for visual demo purposes
-      if (submittedDateStr.includes('07-04')) return -10; // Breached
+      if (submittedDateStr.includes('07-04')) return -10; 
       if (submittedDateStr.includes('07-05')) return 12; 
-      if (submittedDateStr.includes('07-06') && submittedDateStr.includes('09:15')) return 36;
-      if (submittedDateStr.includes('07-06') && submittedDateStr.includes('11:48')) return 40;
-      if (submittedDateStr.includes('07-06') && submittedDateStr.includes('08:00')) return 44;
-      if (submittedDateStr.includes('07-07') && submittedDateStr.includes('08:30')) return 47;
-      return 47; 
+      if (submittedDateStr.includes('07-06') && submittedDateStr.includes('09:15')) return 20;
+      if (submittedDateStr.includes('07-06') && submittedDateStr.includes('11:48')) return 22;
+      if (submittedDateStr.includes('07-06') && submittedDateStr.includes('08:00')) return 23;
+      if (submittedDateStr.includes('07-07') && submittedDateStr.includes('08:30')) return 23;
+      return 23; 
     }
 
     function formatTimer(hours) {
@@ -283,20 +228,13 @@
     }
 
     function getTriageBadge(triage) {
-      const colors = {
-        'Critical': 'bg-red-900/30 text-red-400',
-        'High': 'bg-orange-900/30 text-orange-400',
-        'Medium': 'bg-amber-900/30 text-amber-400',
-        'Low': 'bg-blue-900/30 text-blue-400'
-      };
+      const colors = { 'Critical': 'bg-red-900/30 text-red-400', 'High': 'bg-orange-900/30 text-orange-400', 'Medium': 'bg-amber-900/30 text-amber-400', 'Low': 'bg-blue-900/30 text-blue-400' };
       return `<span class="${colors[triage]} px-2 py-1 rounded-lg text-xs font-bold">${triage}</span>`;
     }
 
     function renderCases() {
       const tbody = document.getElementById('cases-tbody');
       tbody.innerHTML = '';
-      
-      // Sort by triage priority
       const priorityOrder = { 'Critical': 1, 'High': 2, 'Medium': 3, 'Low': 4 };
       const sortedCases = [...mockCases].sort((a, b) => priorityOrder[a.triage] - priorityOrder[b.triage]);
 
@@ -307,13 +245,12 @@
         const dateStr = dateObj.toLocaleDateString('en-ZA') + '<br><span class="text-slate-500">' + dateObj.toLocaleTimeString('en-ZA', {hour: '2-digit', minute:'2-digit'}) + '</span>';
         
         let flagsHtml = '';
-        if (c.flags.includes('Repeat Victim')) flagsHtml += '<div class="text-xs text-red-400 font-semibold mt-1"> Repeat Victim</div>';
-        if (c.flags.includes('Repeat Alleged Perpetrator')) flagsHtml += '<div class="text-xs text-orange-400 font-semibold mt-1"> Repeat Alleged Perpetrator</div>';
+        if (c.flags.includes('Repeat Victim')) flagsHtml += '<div class="text-xs text-red-400 font-semibold mt-1">🚩 Repeat Victim</div>';
+        if (c.flags.includes('Repeat Alleged Perpetrator')) flagsHtml += '<div class="text-xs text-orange-400 font-semibold mt-1">🔁 Repeat Alleged Perpetrator</div>';
         if (c.flags.includes('Crisis Flag')) flagsHtml += '<div class="text-xs text-red-500 font-bold mt-1 animate-pulse">🚨 CRISIS LANE</div>';
         if (c.flags.includes('Cross-School Referral')) flagsHtml += '<div class="text-xs text-purple-400 font-semibold mt-1">🔗 Cross-School Referral</div>';
-        if (c.flags.includes('District Notified')) flagsHtml += '<div class="text-xs text-cyan-400 font-semibold mt-1">️ District Notified</div>';
+        if (c.flags.includes('District Notified')) flagsHtml += '<div class="text-xs text-cyan-400 font-semibold mt-1">🏛️ District Notified</div>';
 
-        // Special styling for cross-school reporter
         let reporterDisplay = c.reporter;
         if (c.isCrossSchool) {
           reporterDisplay = '<span class="text-slate-500 italic">Identity Hidden (POPIA)</span><br><span class="text-xs text-purple-400">Matlhasedi High</span>';
@@ -335,11 +272,9 @@
       });
     }
 
-    // MODAL LOGIC
     function openCaseModal(caseId) {
       const c = mockCases.find(x => x.id === caseId);
       if (!c) return;
-      
       const dateObj = new Date(c.submitted);
       const dateStr = dateObj.toLocaleString('en-ZA');
 
@@ -358,7 +293,6 @@
         flagsHtml += '</div></div>';
       }
 
-      // Special layout for Cross-School Masked Referral
       let mainContent = '';
       if (c.isCrossSchool) {
         mainContent = `
@@ -371,7 +305,6 @@
               </div>
             </div>
           </div>
-
           <div class="grid grid-cols-2 gap-4 mb-6">
             <div><p class="text-slate-400 text-sm mb-1">Type</p><p class="text-white font-semibold">${c.type}</p></div>
             <div><p class="text-slate-400 text-sm mb-1">Reporter</p><p class="text-slate-500 italic font-semibold">Identity Hidden (Matlhasedi High)</p></div>
@@ -380,14 +313,11 @@
             <div class="col-span-2"><p class="text-slate-400 text-sm mb-1">Alleged Perpetrator (Your Learner)</p><p class="text-white font-semibold">${c.alleged}</p></div>
             <div class="col-span-2"><p class="text-slate-400 text-sm mb-1">Current Status</p><p class="text-purple-400 font-semibold">${c.status}</p></div>
           </div>
-
           ${flagsHtml}
-
           <div class="mb-6">
             <p class="text-slate-400 text-sm mb-2">Allegation Summary</p>
             <div class="bg-[#0B0F19] border border-slate-700 rounded-xl p-4"><p class="text-slate-200">${c.desc}</p></div>
           </div>
-
           <div class="bg-cyan-900/20 border border-cyan-800 rounded-xl p-4 mb-6">
             <div class="flex items-start gap-3">
               <span class="text-2xl">🏛️</span>
@@ -400,11 +330,9 @@
           </div>
         `;
       } else {
-        // Standard case layout
         mainContent = `
           <h2 class="text-2xl font-bold text-white mb-2">Case ${c.id}</h2>
           <div class="flex items-center gap-3 mb-6">${getTriageBadge(c.triage)} <span class="text-slate-400 text-sm">Priority Level</span></div>
-          
           <div class="grid grid-cols-2 gap-4 mb-6">
             <div><p class="text-slate-400 text-sm mb-1">Type</p><p class="text-white font-semibold">${c.type}</p></div>
             <div><p class="text-slate-400 text-sm mb-1">Reporter</p><p class="text-white font-semibold">${c.reporter}</p></div>
@@ -413,9 +341,7 @@
             <div><p class="text-slate-400 text-sm mb-1">Alleged Involved</p><p class="text-white font-semibold">${c.alleged}</p></div>
             <div><p class="text-slate-400 text-sm mb-1">Current Status</p><p class="text-cyan-400 font-semibold">${c.status}</p></div>
           </div>
-
           ${flagsHtml}
-
           <div class="mb-6">
             <p class="text-slate-400 text-sm mb-2">Description</p>
             <div class="bg-[#0B0F19] border border-slate-700 rounded-xl p-4"><p class="text-slate-200">${c.desc}</p></div>
@@ -425,18 +351,16 @@
 
       document.getElementById('modal-body').innerHTML = `
         ${mainContent}
-
         <div class="mb-6">
           <p class="text-slate-400 text-sm mb-2">SLA Timeline</p>
           <div class="bg-[#0B0F19] border border-slate-700 rounded-xl p-4">
             <div class="flex gap-4 text-xs">
-              <div class="flex-1"><span class="text-green-400 font-bold">48 School Hours</span><br><span class="text-slate-500">Acknowledge & Assign</span></div>
+              <div class="flex-1"><span class="text-green-400 font-bold">24 School Hours</span><br><span class="text-slate-500">Acknowledge & Assign</span></div>
               <div class="flex-1"><span class="text-amber-400 font-bold">7 School Days</span><br><span class="text-slate-500">Initial Investigation</span></div>
               <div class="flex-1"><span class="text-red-400 font-bold">14 School Days</span><br><span class="text-slate-500">Close or Escalate</span></div>
             </div>
           </div>
         </div>
-
         <div class="flex gap-3 mt-8">
           <button class="flex-1 bg-cyan-600 text-white font-bold py-3 rounded-xl hover:bg-cyan-500 transition">Log Action</button>
           ${c.isCrossSchool ? '<button class="flex-1 bg-purple-600 text-white font-bold py-3 rounded-xl hover:bg-purple-500 transition">Message District</button>' : '<button class="flex-1 bg-slate-700 text-white font-bold py-3 rounded-xl hover:bg-slate-600 transition">Escalate</button>'}
@@ -446,41 +370,24 @@
       document.getElementById('caseModal').style.display = 'block';
     }
 
-    function closeCaseModal() {
-      document.getElementById('caseModal').style.display = 'none';
-    }
+    function closeCaseModal() { document.getElementById('caseModal').style.display = 'none'; }
+    window.onclick = function(event) { const modal = document.getElementById('caseModal'); if (event.target === modal) modal.style.display = 'none'; }
 
-    window.onclick = function(event) {
-      const modal = document.getElementById('caseModal');
-      if (event.target === modal) modal.style.display = 'none';
-    }
-
-    // TABS LOGIC
     function switchTab(tabName) {
-      document.querySelectorAll('.tab-btn').forEach(b => {
-        b.classList.remove('tab-active');
-        b.classList.add('text-slate-400');
-      });
+      document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('tab-active'); b.classList.add('text-slate-400'); });
       document.getElementById('tab-' + tabName).classList.add('tab-active');
       document.getElementById('tab-' + tabName).classList.remove('text-slate-400');
-
-      document.querySelectorAll('#view-cases, #view-hotspots, #view-analytics, #view-settings').forEach(v => {
-        v.classList.add('hidden-section');
-        v.classList.remove('active-section');
-      });
+      document.querySelectorAll('#view-cases, #view-hotspots, #view-analytics, #view-settings').forEach(v => { v.classList.add('hidden-section'); v.classList.remove('active-section'); });
       document.getElementById('view-' + tabName).classList.remove('hidden-section');
       document.getElementById('view-' + tabName).classList.add('active-section');
-
       const titles = { 'cases': 'Case Management', 'hotspots': 'Routes & Hotspots', 'analytics': 'Analytics', 'settings': 'School Settings' };
       document.getElementById('page-title').textContent = titles[tabName];
     }
 
-    // LOGIN LOGIC
     function attemptLogin() {
       const user = document.getElementById('login-user').value;
       const pass = document.getElementById('login-pass').value;
       const errorBox = document.getElementById('login-error');
-
       if (user === 'Unmute' && pass === 'Unmute123') {
         errorBox.classList.add('hidden');
         document.getElementById('login-screen').classList.remove('active-section');
@@ -488,9 +395,7 @@
         document.getElementById('dashboard-screen').classList.remove('hidden-section');
         document.getElementById('dashboard-screen').classList.add('active-section');
         renderCases();
-      } else {
-        errorBox.classList.remove('hidden');
-      }
+      } else { errorBox.classList.remove('hidden'); }
     }
 
     function logout() {
@@ -502,9 +407,7 @@
       document.getElementById('login-pass').value = '';
     }
 
-    document.getElementById('login-pass').addEventListener('keypress', function (e) {
-      if (e.key === 'Enter') attemptLogin();
-    });
+    document.getElementById('login-pass').addEventListener('keypress', function (e) { if (e.key === 'Enter') attemptLogin(); });
   </script>
 </body>
 </html>
