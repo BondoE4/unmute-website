@@ -63,10 +63,10 @@
         <button onclick="openSection('teachers')" class="group relative overflow-hidden rounded-3xl p-8 text-left transition-all hover:scale-105 hover:shadow-2xl border-2 border-slate-200">
           <div class="absolute inset-0 gradient-teachers opacity-95"></div>
           <div class="relative z-10 text-white">
-            <div class="text-6xl mb-4">️</div>
+            <div class="text-6xl mb-4">🦉</div>
             <h2 class="text-2xl font-bold mb-2">The Protected Line</h2>
-            <p class="text-lg font-medium mb-2 text-cyan-400">For Educators</p>
-            <p class="text-sm opacity-80">Confidential reporting</p>
+            <p class="text-lg font-medium mb-2 text-cyan-400">Converse with Iris</p>
+            <p class="text-sm opacity-80">Confidential reporting for educators</p>
           </div>
         </button>
       </div>
@@ -80,7 +80,6 @@
         </div>
         <div id="case-status-result" class="hidden mt-4 p-4 bg-slate-50 rounded-xl"></div>
         
-        <!-- SATISFACTION CHECK (Hidden by default) -->
         <div id="satisfaction-check" class="hidden mt-6 p-6 bg-cyan-50 border border-cyan-200 rounded-xl">
           <p class="font-bold text-cyan-900 mb-3">Are you satisfied with how this was handled?</p>
           <div class="flex gap-3 mb-4">
@@ -95,12 +94,11 @@
         </div>
       </div>
 
-      <!-- SAFETY HUB -->
       <div class="mt-12">
         <h3 class="text-xl font-bold text-slate-900 mb-6 text-center">Your Safety Hub</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition cursor-pointer">
-            <div class="text-3xl mb-3">🛡️</div>
+            <div class="text-3xl mb-3">️</div>
             <h4 class="font-bold text-slate-900 mb-2">Is this bullying?</h4>
             <p class="text-sm text-slate-600">Not sure if what you are experiencing is bullying? Check this quick guide to find out.</p>
           </div>
@@ -127,7 +125,7 @@
             <p id="mascot-greeting" class="text-lg text-slate-700 leading-relaxed">Hi there! I am Keitumetse, and I am so glad you are here. You are safe with me, and everything you tell me is confidential. Only trusted school adults who can help you will see your information. Ready to talk?</p>
           </div>
           <div class="mt-4 bg-cyan-50 border border-cyan-200 p-4 rounded-xl max-w-md mx-auto">
-            <p class="text-sm text-cyan-800 font-semibold"> UNMUTE is open 24/7. You can report right now, whether it is midnight, a weekend, or school holidays. We hear you immediately, and the school clock starts on the next school day.</p>
+            <p class="text-sm text-cyan-800 font-semibold">🕒 UNMUTE is open 24/7. You can report right now, whether it is midnight, a weekend, or school holidays. We hear you immediately, and the school clock starts on the next school day.</p>
           </div>
           <button onclick="goToStep('step-feeling')" class="mt-8 w-full bg-gradient-to-r from-orange-400 via-pink-500 to-purple-500 text-white font-bold py-4 rounded-2xl hover:opacity-90 transition shadow-lg">Yes, I am ready</button>
         </div>
@@ -143,7 +141,7 @@
           <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
             <button onclick="selectFeeling('sad', this)" class="feeling-btn p-4 border-2 border-slate-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50 transition text-center">😢<br><span class="text-sm font-semibold">Sad</span></button>
             <button onclick="selectFeeling('scared', this)" class="feeling-btn p-4 border-2 border-slate-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50 transition text-center">😰<br><span class="text-sm font-semibold">Scared</span></button>
-            <button onclick="selectFeeling('angry', this)" class="feeling-btn p-4 border-2 border-slate-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50 transition text-center">😠<br><span class="text-sm font-semibold">Angry</span></button>
+            <button onclick="selectFeeling('angry', this)" class="feeling-btn p-4 border-2 border-slate-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50 transition text-center"><br><span class="text-sm font-semibold">Angry</span></button>
             <button onclick="selectFeeling('confused', this)" class="feeling-btn p-4 border-2 border-slate-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50 transition text-center">😕<br><span class="text-sm font-semibold">Confused</span></button>
             <button onclick="selectFeeling('hurt', this)" class="feeling-btn p-4 border-2 border-slate-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50 transition text-center">💔<br><span class="text-sm font-semibold">Hurt</span></button>
             <button onclick="selectFeeling('other', this)" class="feeling-btn p-4 border-2 border-slate-200 rounded-2xl hover:border-cyan-500 hover:bg-cyan-50 transition text-center">😶<br><span class="text-sm font-semibold">Other</span></button>
@@ -256,15 +254,15 @@
           <div class="mb-6">
             <label class="block text-sm font-semibold text-slate-700 mb-3">What type of incident was it?</label>
             <div class="grid grid-cols-1 gap-2">
-              <button onclick="selectIncidentType('Bullying', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">🚫 Bullying</button>
+              <button onclick="selectIncidentType('Bullying', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition"> Bullying</button>
               <button onclick="selectIncidentType('Physical assault', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">👊 Physical assault</button>
-              <button onclick="selectIncidentType('Threats and intimidation', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">️ Threats and intimidation</button>
+              <button onclick="selectIncidentType('Threats and intimidation', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">⚠️ Threats and intimidation</button>
               <button onclick="selectIncidentType('Cyberbullying', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">📱 Cyberbullying</button>
               <button onclick="selectIncidentType('School Transport harassment', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">🚌 School Transport harassment</button>
               <button onclick="selectIncidentType('Discrimination', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">⚖️ Discrimination</button>
-              <button onclick="selectIncidentType('Educator misconduct', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">👨‍🏫 Educator misconduct</button>
+              <button onclick="selectIncidentType('Educator misconduct', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">‍🏫 Educator misconduct</button>
               <button onclick="selectIncidentType('Emotional abuse', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">💔 Emotional abuse</button>
-              <button onclick="selectIncidentType('Sexual harassment', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">🚨 Sexual harassment</button>
+              <button onclick="selectIncidentType('Sexual harassment', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition"> Sexual harassment</button>
               <button onclick="selectIncidentType('Unsafe school environment', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">🏫 Unsafe school environment</button>
               <button onclick="selectIncidentType('Other safeguarding concern', this)" class="incident-type p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">📝 Other safeguarding concern</button>
             </div>
@@ -279,7 +277,7 @@
             <label class="block text-sm font-semibold text-slate-700 mb-2">Tell me what happened (tap the mic to speak)</label>
             <div class="relative">
               <textarea id="incident-description" rows="5" class="w-full p-3 pr-12 border border-slate-200 rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none resize-none" placeholder="What happened? When? Where? Who was involved?" oninput="checkCrisis()"></textarea>
-              <button onclick="toggleMic()" id="mic-btn" class="absolute bottom-3 right-3 bg-pink-500 text-white p-3 rounded-full hover:bg-pink-600 transition shadow-lg">🎤</button>
+              <button onclick="toggleMic()" id="mic-btn" class="absolute bottom-3 right-3 bg-pink-500 text-white p-3 rounded-full hover:bg-pink-600 transition shadow-lg"></button>
             </div>
             <p id="mic-status" class="text-xs text-slate-400 mt-2 text-right">Tap to record your voice</p>
           </div>
@@ -322,11 +320,10 @@
               <button onclick="selectLocation('School transport', this)" class="location-btn p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">🚌 School transport</button>
               <button onclick="selectLocation('Sports event', this)" class="location-btn p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">🏆 Sports event</button>
               <button onclick="selectLocation('Online', this)" class="location-btn p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">📱 Online</button>
-              <button onclick="selectLocation('Other', this)" class="location-btn p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition">📝 Other</button>
+              <button onclick="selectLocation('Other', this)" class="location-btn p-3 text-left border-2 border-slate-200 rounded-xl hover:border-cyan-500 hover:bg-cyan-50 transition"> Other</button>
             </div>
           </div>
           
-          <!-- IDENTIFYING THE BULLY (Modified based on your feedback) -->
           <div id="bully-identification" class="mb-6 bg-slate-50 p-5 rounded-xl border border-slate-200">
             <label class="block text-sm font-semibold text-slate-700 mb-2">Do you know the name or nickname of the person involved?</label>
             <p class="text-xs text-slate-500 mb-4">We just need this to help the school find the right person to speak to. This is about finding a solution, not passing blame.</p>
@@ -437,7 +434,7 @@
 
     const triageRules = {
       'Physical assault': { level: 'Critical', color: 'red', icon: '🔴', desc: 'Immediate attention required. Your case will be prioritised.' },
-      'Sexual harassment': { level: 'Critical', color: 'red', icon: '', desc: 'Immediate attention required. Your case will be prioritised.' },
+      'Sexual harassment': { level: 'Critical', color: 'red', icon: '🔴', desc: 'Immediate attention required. Your case will be prioritised.' },
       'Threats and intimidation': { level: 'High', color: 'orange', icon: '🟠', desc: 'This will be treated with urgency.' },
       'Bullying': { level: 'High', color: 'orange', icon: '🟠', desc: 'This will be treated with urgency.' },
       'Educator misconduct': { level: 'High', color: 'orange', icon: '🟠', desc: 'This will be treated with urgency.' },
@@ -446,12 +443,10 @@
       'Discrimination': { level: 'Medium', color: 'amber', icon: '🟡', desc: 'This will be investigated within standard timelines.' },
       'Emotional abuse': { level: 'Medium', color: 'amber', icon: '🟡', desc: 'This will be investigated within standard timelines.' },
       'Unsafe school environment': { level: 'Medium', color: 'amber', icon: '🟡', desc: 'This will be investigated within standard timelines.' },
-      'Other safeguarding concern': { level: 'Low', color: 'blue', icon: '', desc: 'This has been logged and will be reviewed.' }
+      'Other safeguarding concern': { level: 'Low', color: 'blue', icon: '🔵', desc: 'This has been logged and will be reviewed.' }
     };
 
-    const caseDatabase = {
-      'RESOLVED-123': { status: 'Resolved', triage: 'Medium', timestamp: new Date().toISOString() }
-    };
+    const caseDatabase = { 'RESOLVED-123': { status: 'Resolved', triage: 'Medium', timestamp: new Date().toISOString() } };
 
     let currentSection = '';
     let selectedSchool = null;
@@ -490,10 +485,10 @@
         document.getElementById('mascot-greeting').textContent = "Hey, I am Precious. Thanks for reaching out. I know that takes courage. Everything you share stays confidential, and only the school adults who can actually help will see it. Want to talk?";
         document.getElementById('mascot-feeling').textContent = "How are you feeling right now? Whatever it is, it is valid. I am here.";
       } else {
-        document.getElementById('mascot-emoji').textContent = '🛡️';
-        document.getElementById('mascot-emoji-2').textContent = '️';
-        document.getElementById('mascot-greeting').textContent = "Welcome to The Protected Line. This is a confidential channel for educators to report misconduct or incidents. Your identity is protected and only authorized personnel will review your report.";
-        document.getElementById('mascot-feeling').textContent = "How are you feeling right now? Please take your time.";
+        document.getElementById('mascot-emoji').textContent = '';
+        document.getElementById('mascot-emoji-2').textContent = '🦉';
+        document.getElementById('mascot-greeting').textContent = "Welcome to The Protected Line. I am Iris. This is a confidential, secure channel for educators to report misconduct or incidents. Your identity is protected with the utmost professional rigour, and only authorized personnel will review your report.";
+        document.getElementById('mascot-feeling').textContent = "How are you feeling right now, colleague? Please take your time.";
         
         document.getElementById('name-prompt').textContent = "To process your report securely, we require your employment details. Your identity is strictly protected under POPIA.";
         document.getElementById('anonymity-toggle').classList.add('hidden');
@@ -577,11 +572,7 @@
       window.scrollTo(0, 0);
     }
 
-    function goToStep(stepId) {
-      stepHistory.push(stepId);
-      showStep(stepId);
-    }
-
+    function goToStep(stepId) { stepHistory.push(stepId); showStep(stepId); }
     function goBack() {
       if (stepHistory.length > 1) {
         stepHistory.pop();
@@ -672,7 +663,6 @@
         triageText.textContent = currentTriage.icon + ' Priority: ' + currentTriage.level;
         triageDesc.textContent = currentTriage.desc;
       }
-
       checkIncidentButton();
     }
 
@@ -687,13 +677,8 @@
       bullyKnown = answer;
       document.querySelectorAll('.bully-btn').forEach(function(b) { b.classList.remove('border-cyan-500', 'bg-cyan-50'); });
       btnElement.classList.add('border-cyan-500', 'bg-cyan-50');
-      
       var detailsDiv = document.getElementById('bully-details');
-      if (answer === 'yes') {
-        detailsDiv.classList.remove('hidden');
-      } else {
-        detailsDiv.classList.add('hidden');
-      }
+      if (answer === 'yes') { detailsDiv.classList.remove('hidden'); } else { detailsDiv.classList.add('hidden'); }
     }
 
     function toggleCrossSchool(answer, btnElement) {
@@ -701,20 +686,14 @@
       document.querySelectorAll('.cross-btn').forEach(function(b) { b.classList.remove('border-cyan-500', 'bg-cyan-50'); });
       btnElement.classList.add('border-cyan-500', 'bg-cyan-50');
       var otherSchoolDiv = document.getElementById('other-school-search');
-      if (answer === 'no') {
-        otherSchoolDiv.classList.remove('hidden');
-      } else {
-        otherSchoolDiv.classList.add('hidden');
-        otherSchool = null;
-        document.getElementById('other-school-input').value = '';
-      }
+      if (answer === 'no') { otherSchoolDiv.classList.remove('hidden'); } 
+      else { otherSchoolDiv.classList.add('hidden'); otherSchool = null; document.getElementById('other-school-input').value = ''; }
       checkContextButton();
     }
 
     function checkContextButton() {
       var btn = document.getElementById('btn-context');
       var isValid = selectedLocation;
-      
       if (isTeacher) {
         var duration = document.getElementById('issue-duration').value;
         if (!duration) isValid = false;
@@ -722,7 +701,6 @@
         if (!crossSchoolAnswer) isValid = false;
         if (crossSchoolAnswer === 'no' && !otherSchool) isValid = false;
       }
-      
       if (isValid) {
         btn.disabled = false;
         btn.className = 'w-full bg-gradient-to-r from-cyan-600 to-blue-700 text-white font-bold py-4 rounded-2xl hover:opacity-90 transition shadow-lg';
@@ -847,7 +825,6 @@
     
     var durationEl = document.getElementById('issue-duration');
     if (durationEl) durationEl.addEventListener('change', checkContextButton);
-
     document.getElementById('incident-description').addEventListener('input', checkIncidentButton);
 
     function submitReport() {
@@ -904,20 +881,12 @@
       var caseNum = document.getElementById('case-check-input').value.trim().toUpperCase();
       var resultDiv = document.getElementById('case-status-result');
       var satisfactionDiv = document.getElementById('satisfaction-check');
-      
       if (!caseNum) { alert('Please enter a case number'); return; }
-      
       var caseData = caseDatabase[caseNum];
-      
       if (caseData) {
         resultDiv.classList.remove('hidden');
         resultDiv.innerHTML = '<div class="space-y-3"><div class="flex justify-between items-center"><span class="font-semibold">Status:</span><span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">' + caseData.status + '</span></div><div class="flex justify-between items-center"><span class="font-semibold">Priority:</span><span class="font-semibold">' + caseData.triage + '</span></div><div class="flex justify-between items-center"><span class="font-semibold">Submitted:</span><span class="text-sm">' + new Date(caseData.timestamp).toLocaleString() + '</span></div></div>';
-        
-        if (caseData.status === 'Resolved') {
-          satisfactionDiv.classList.remove('hidden');
-        } else {
-          satisfactionDiv.classList.add('hidden');
-        }
+        if (caseData.status === 'Resolved') { satisfactionDiv.classList.remove('hidden'); } else { satisfactionDiv.classList.add('hidden'); }
       } else {
         resultDiv.classList.remove('hidden');
         satisfactionDiv.classList.add('hidden');
@@ -930,9 +899,7 @@
       if (answer === 'yes') {
         reasonDiv.classList.add('hidden');
         document.getElementById('satisfaction-check').innerHTML = '<p class="text-green-700 font-bold text-center">Thank you for your feedback. Your case is now officially closed.</p>';
-      } else {
-        reasonDiv.classList.remove('hidden');
-      }
+      } else { reasonDiv.classList.remove('hidden'); }
     }
 
     function submitDissatisfaction() {
